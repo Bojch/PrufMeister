@@ -780,6 +780,10 @@ function generateMockTest() {
 }
 
 function buildListening(versionIndex = 0) {
+  if (typeof listeningPracticeTests !== "undefined" && listeningPracticeTests.length) {
+    return buildListeningFromPracticeTest(listeningPracticeTests[versionIndex % listeningPracticeTests.length]);
+  }
+
   const tasks = [];
 
   rotateSelect(listeningAnnouncements, 4, versionIndex).forEach((seed, index) => {
@@ -848,6 +852,103 @@ function buildListening(versionIndex = 0) {
   return tasks;
 }
 
+function buildListeningFromPracticeTest(test) {
+  const tasks = [];
+
+  test.part1.forEach((item) => {
+    tasks.push({
+      id: `h-${item.no}`,
+      number: item.no,
+      part: 1,
+      type: "Teil 1: Ansagen",
+      instruction: "Sie hören vier Ansagen. Zu jeder Ansage gibt es eine Aufgabe. Welche Lösung passt am besten?",
+      audioTitle: `Ansage ${item.no}`,
+      audio: item.audio_script,
+      audioFile: item.audio_file,
+      question: item.question,
+      options: optionsFromLetters(item.options),
+      correct: answerToIndex(item.answer),
+      mode: "multiple"
+    });
+  });
+
+  test.part2.forEach((item) => {
+    tasks.push({
+      id: `h-${item.no}`,
+      number: item.no,
+      part: 2,
+      type: "Teil 2: Radio",
+      instruction: "Sie hören fünf Ansagen aus dem Radio. Zu jeder Ansage gibt es eine Aufgabe. Welche Lösung passt am besten?",
+      audioTitle: `Radioansage ${item.no}`,
+      audio: item.audio_script,
+      audioFile: item.audio_file,
+      question: item.question,
+      options: optionsFromLetters(item.options),
+      correct: answerToIndex(item.answer),
+      mode: "multiple"
+    });
+  });
+
+  test.part3.forEach((conversation, conversationIndex) => {
+    const transcript = Array.isArray(conversation.audio_script)
+      ? conversation.audio_script.map((line) => `${line.speaker}: ${line.text}`).join(" ")
+      : conversation.audio_script;
+
+    conversation.items.forEach((item, taskIndex) => {
+      const isTrueFalse = item.type === "true_false" || item.type === "trueFalse";
+      tasks.push({
+        id: `h-${item.no}`,
+        number: item.no,
+        part: 3,
+        type: "Teil 3: Gespräche",
+        instruction: "Sie hören vier Gespräche. Zu jedem Gespräch gibt es zwei Aufgaben.",
+        audioTitle: `Gespräch ${conversationIndex + 1} · Aufgaben ${conversation.range}`,
+        audio: transcript,
+        audioFile: conversation.audio_file,
+        question: isTrueFalse ? item.statement : item.question,
+        options: isTrueFalse ? ["Richtig", "Falsch"] : optionsFromLetters(item.options),
+        correct: isTrueFalse ? answerToIndex(item.answer) : answerToIndex(item.answer),
+        mode: isTrueFalse ? "trueFalse" : "multiple",
+        pairLabel: taskIndex === 0 ? "Aussage prüfen" : "Frage beantworten"
+      });
+    });
+  });
+
+  const sentences = Object.entries(test.part4.sentences).map(([letter, text]) => `${letter.toUpperCase()}: ${text}`);
+  test.part4.items.forEach((item, index) => {
+    tasks.push({
+      id: `h-${item.no}`,
+      number: item.no,
+      part: 4,
+      type: "Teil 4: Meinungen",
+      instruction: "Sie hören Aussagen zu einem Thema. Welcher Satz passt zu welcher Aussage?",
+      audioTitle: `Aussage ${index + 1}: ${test.topic_part4}`,
+      audio: item.audio_script,
+      audioFile: item.audio_file,
+      question: `Welche Aussage passt zu Person ${index + 1}?`,
+      options: sentences,
+      correct: answerToIndex(item.answer),
+      mode: "matching",
+      matchOptions: sentences,
+      topic: test.topic_part4
+    });
+  });
+
+  return tasks;
+}
+
+function optionsFromLetters(options) {
+  if (Array.isArray(options)) return options;
+  return Object.keys(options || {}).sort().map((key) => options[key]);
+}
+
+function answerToIndex(answer) {
+  const normalized = String(answer).trim().toLowerCase();
+  if (normalized === "richtig") return 0;
+  if (normalized === "falsch") return 1;
+  return ["a", "b", "c", "d", "e", "f", "g", "h", "x"].indexOf(normalized);
+}
+
 function buildReading(versionIndex = 0) {
   if (typeof readingPracticeTests !== "undefined" && readingPracticeTests.length) {
     return buildReadingFromPracticeTest(readingPracticeTests[versionIndex % readingPracticeTests.length]);
@@ -858,8 +959,8 @@ function buildReading(versionIndex = 0) {
   rotateSelect(readingShortTexts, 5, versionIndex).forEach((seed, index) => {
     tasks.push({
       ...seed,
-      id: `r-${index + 1}`,
-      number: index + 1,
+      id: `r-${seed.number || index + 21}`,
+      number: seed.number || index + 21,
       part: 1,
       type: "Teil 1: Internetseite",
       instruction: "Sie suchen auf der Internetseite Ihrer Stadt nach Informationen. Wo finden Sie die passende Information? Wählen Sie A, B oder C."
@@ -868,8 +969,8 @@ function buildReading(versionIndex = 0) {
 
   rotateSelect(readingAdSituations, 5, versionIndex).forEach((situation, index) => {
     tasks.push({
-      id: `r-${index + 6}`,
-      number: index + 6,
+      id: `r-${situation.number || index + 26}`,
+      number: situation.number || index + 26,
       part: 2,
       type: "Teil 2: Anzeigen",
       instruction: "Lesen Sie die Situationen und die Anzeigen. Welche Anzeige passt? Wählen Sie A-H oder X.",
@@ -886,8 +987,8 @@ function buildReading(versionIndex = 0) {
     message.tasks.forEach((task, taskIndex) => {
       const isTrueFalse = task.mode === "trueFalse";
       tasks.push({
-        id: `r-${messageNumber}`,
-        number: messageNumber,
+        id: `r-${task.number || messageNumber}`,
+        number: task.number || messageNumber,
         part: 3,
         type: "Teil 3: Nachrichten",
         instruction: "Lesen Sie drei kurze Nachrichten. Zu jeder Nachricht gibt es zwei Aufgaben.",
@@ -906,8 +1007,8 @@ function buildReading(versionIndex = 0) {
   const readingInfoText = readingInfoTexts[versionIndex % readingInfoTexts.length];
   readingInfoText.statements.forEach((item, index) => {
     tasks.push({
-      id: `r-${index + 17}`,
-      number: index + 17,
+      id: `r-${item.number || index + 37}`,
+      number: item.number || index + 37,
       part: 4,
       type: "Teil 4: Informationstext",
       instruction: "Lesen Sie den Informationstext. Sind die Aussagen richtig oder falsch?",
@@ -923,8 +1024,8 @@ function buildReading(versionIndex = 0) {
   const readingCloze = readingClozes[versionIndex % readingClozes.length];
   readingCloze.blanks.forEach((blank, index) => {
     tasks.push({
-      id: `r-${index + 20}`,
-      number: index + 20,
+      id: `r-${blank.number || index + 40}`,
+      number: blank.number || index + 40,
       part: 5,
       type: "Teil 5: Sprachbausteine",
       instruction: "Lesen Sie den Text mit Lücken. Wählen Sie die passende Lösung A, B oder C.",
@@ -945,8 +1046,8 @@ function buildReadingFromPracticeTest(test) {
 
   test.part1.tasks.forEach((seed, index) => {
     tasks.push({
-      id: `r-${index + 1}`,
-      number: index + 1,
+      id: `r-${seed.number || index + 21}`,
+      number: seed.number || index + 21,
       part: 1,
       type: "Teil 1: Internetseite",
       instruction: "Sie suchen auf der Internetseite nach Informationen. Wo finden Sie die passende Information? Wählen Sie A, B oder C.",
@@ -961,8 +1062,8 @@ function buildReadingFromPracticeTest(test) {
 
   test.part2.situations.forEach((situation, index) => {
     tasks.push({
-      id: `r-${index + 6}`,
-      number: index + 6,
+      id: `r-${situation.number || index + 26}`,
+      number: situation.number || index + 26,
       part: 2,
       type: "Teil 2: Anzeigen",
       instruction: "Lesen Sie die Situationen und die Anzeigen. Welche Anzeige passt? Wählen Sie A-H oder X.",
@@ -975,12 +1076,12 @@ function buildReadingFromPracticeTest(test) {
     });
   });
 
-  let messageNumber = 11;
+  let messageNumber = 31;
   test.part3.forEach((message, messageIndex) => {
     message.tasks.forEach((task, taskIndex) => {
       tasks.push({
-        id: `r-${messageNumber}`,
-        number: messageNumber,
+        id: `r-${task.number || messageNumber}`,
+        number: task.number || messageNumber,
         part: 3,
         type: "Teil 3: Nachrichten",
         instruction: "Lesen Sie drei kurze Nachrichten. Zu jeder Nachricht gibt es zwei Aufgaben.",
@@ -998,8 +1099,8 @@ function buildReadingFromPracticeTest(test) {
 
   test.part4.statements.forEach((item, index) => {
     tasks.push({
-      id: `r-${index + 17}`,
-      number: index + 17,
+      id: `r-${item.number || index + 37}`,
+      number: item.number || index + 37,
       part: 4,
       type: "Teil 4: Informationstext",
       instruction: "Lesen Sie den Informationstext. Sind die Aussagen richtig oder falsch?",
@@ -1014,8 +1115,8 @@ function buildReadingFromPracticeTest(test) {
 
   test.part5.blanks.forEach((blank, index) => {
     tasks.push({
-      id: `r-${index + 20}`,
-      number: index + 20,
+      id: `r-${blank.number || index + 40}`,
+      number: blank.number || index + 40,
       part: 5,
       type: "Teil 5: Sprachbausteine",
       instruction: "Lesen Sie den Text mit Lücken. Wählen Sie die passende Lösung A, B oder C.",
@@ -1146,11 +1247,11 @@ function renderReading() {
 
 function renderReadingPartDivider(task) {
   const titles = {
-    1: "Teil 1 · Internetseite/Menu · Aufgaben 1-5",
-    2: "Teil 2 · Anzeigen · Aufgaben 6-10",
-    3: "Teil 3 · Nachrichten · Aufgaben 11-16",
-    4: "Teil 4 · Informationstext · Aufgaben 17-19",
-    5: "Teil 5 · Sprachbausteine · Aufgaben 20-25"
+    1: "Teil 1 · Internetseite/Menu · Aufgaben 21-25",
+    2: "Teil 2 · Anzeigen · Aufgaben 26-30",
+    3: "Teil 3 · Nachrichten · Aufgaben 31-36",
+    4: "Teil 4 · Informationstext · Aufgaben 37-39",
+    5: "Teil 5 · Sprachbausteine · Aufgaben 40-45"
   };
   let helper = "";
   if (task.part === 1) {
@@ -1265,6 +1366,8 @@ function renderRubrics() {
   `).join("");
 }
 
+let currentAudioPlayer = null;
+
 function playCurrentListening() {
   const firstUnanswered = state.test.listening.find((task) => task.answer === undefined) || state.test.listening[0];
   speakTask(firstUnanswered.id);
@@ -1272,9 +1375,31 @@ function playCurrentListening() {
 
 function speakTask(id) {
   const task = state.test.listening.find((item) => item.id === id);
-  if (!task || !("speechSynthesis" in window)) return;
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(task.audio);
+  if (!task) return;
+
+  if (currentAudioPlayer) {
+    currentAudioPlayer.pause();
+    currentAudioPlayer.currentTime = 0;
+    currentAudioPlayer = null;
+  }
+
+  if ("speechSynthesis" in window) {
+    window.speechSynthesis.cancel();
+  }
+
+  if (task.audioFile) {
+    const audio = new Audio(task.audioFile);
+    currentAudioPlayer = audio;
+    audio.play().catch(() => playSpeechFallback(task.audio));
+    return;
+  }
+
+  playSpeechFallback(task.audio);
+}
+
+function playSpeechFallback(text) {
+  if (!("speechSynthesis" in window)) return;
+  const utterance = new SpeechSynthesisUtterance(text);
   const voices = window.speechSynthesis.getVoices();
   utterance.voice = voices.find((voice) => voice.lang.toLowerCase().startsWith("de")) || null;
   utterance.lang = "de-DE";
@@ -1539,7 +1664,7 @@ function capitalize(text) {
 }
 
 function escapeHtml(text) {
-  return text
+  return String(text ?? "")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")

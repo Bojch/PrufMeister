@@ -9,9 +9,15 @@ It includes original practice material for:
 - Schreiben
 - Sprechen
 
-The app is built as a static site with plain HTML, CSS, and JavaScript, so it can be hosted directly with GitHub Pages.
+## What changed in this update
 
-## Run Locally
+- Added 6 full original **Lesen** practice versions.
+- Added 6 full original **Hören** practice versions.
+- Added local MP3 files for the Hören section.
+- The **Generate Mock Test** button now rotates through different complete mock exam versions.
+- Listening playback uses MP3 files first and falls back to browser speech synthesis if needed.
+
+## Run locally
 
 Open `index.html` in a browser, or run a simple local server:
 
@@ -25,23 +31,16 @@ Then visit:
 http://localhost:5173
 ```
 
-## Host With GitHub Pages
+## Host with GitHub Pages
 
-1. Create a new GitHub repository.
-2. Push this project to the repository.
-3. In GitHub, go to `Settings` -> `Pages`.
-4. Under `Build and deployment`, choose:
+1. Push this project to GitHub.
+2. Go to `Settings` → `Pages`.
+3. Under `Build and deployment`, choose:
    - Source: `Deploy from a branch`
    - Branch: `main`
    - Folder: `/ (root)`
-5. Save.
-
-GitHub will publish the app at a URL like:
-
-```text
-https://YOUR_USERNAME.github.io/YOUR_REPOSITORY_NAME/
-```
+4. Save.
 
 ## Note
 
-This app uses original practice tasks and realistic topic photos for training. It does not copy official exam papers.
+This app uses original practice tasks and synthetic audio generated for training/prototyping. It does not copy official exam papers.

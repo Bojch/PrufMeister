@@ -1,0 +1,97 @@
+test_id,part,task_or_range,audio_file,correct_answer
+test_01,Teil 1,1,audio/test_01/teil_1/test_01_teil1_aufgabe_01.mp3,c
+test_01,Teil 1,2,audio/test_01/teil_1/test_01_teil1_aufgabe_02.mp3,b
+test_01,Teil 1,3,audio/test_01/teil_1/test_01_teil1_aufgabe_03.mp3,a
+test_01,Teil 1,4,audio/test_01/teil_1/test_01_teil1_aufgabe_04.mp3,c
+test_01,Teil 2,5,audio/test_01/teil_2/test_01_teil2_aufgabe_05.mp3,b
+test_01,Teil 2,6,audio/test_01/teil_2/test_01_teil2_aufgabe_06.mp3,a
+test_01,Teil 2,7,audio/test_01/teil_2/test_01_teil2_aufgabe_07.mp3,c
+test_01,Teil 2,8,audio/test_01/teil_2/test_01_teil2_aufgabe_08.mp3,c
+test_01,Teil 2,9,audio/test_01/teil_2/test_01_teil2_aufgabe_09.mp3,b
+test_01,Teil 3,10-11,audio/test_01/teil_3/test_01_teil3_aufgaben_10_11.mp3,10=richtig; 11=b
+test_01,Teil 3,12-13,audio/test_01/teil_3/test_01_teil3_aufgaben_12_13.mp3,12=falsch; 13=a
+test_01,Teil 3,14-15,audio/test_01/teil_3/test_01_teil3_aufgaben_14_15.mp3,14=richtig; 15=b
+test_01,Teil 3,16-17,audio/test_01/teil_3/test_01_teil3_aufgaben_16_17.mp3,16=richtig; 17=a
+test_01,Teil 4,18,audio/test_01/teil_4/test_01_teil4_aussage_18.mp3,a
+test_01,Teil 4,19,audio/test_01/teil_4/test_01_teil4_aussage_19.mp3,d
+test_01,Teil 4,20,audio/test_01/teil_4/test_01_teil4_aussage_20.mp3,f
+test_02,Teil 1,1,audio/test_02/teil_1/test_02_teil1_aufgabe_01.mp3,b
+test_02,Teil 1,2,audio/test_02/teil_1/test_02_teil1_aufgabe_02.mp3,c
+test_02,Teil 1,3,audio/test_02/teil_1/test_02_teil1_aufgabe_03.mp3,a
+test_02,Teil 1,4,audio/test_02/teil_1/test_02_teil1_aufgabe_04.mp3,b
+test_02,Teil 2,5,audio/test_02/teil_2/test_02_teil2_aufgabe_05.mp3,a
+test_02,Teil 2,6,audio/test_02/teil_2/test_02_teil2_aufgabe_06.mp3,c
+test_02,Teil 2,7,audio/test_02/teil_2/test_02_teil2_aufgabe_07.mp3,b
+test_02,Teil 2,8,audio/test_02/teil_2/test_02_teil2_aufgabe_08.mp3,a
+test_02,Teil 2,9,audio/test_02/teil_2/test_02_teil2_aufgabe_09.mp3,b
+test_02,Teil 3,10-11,audio/test_02/teil_3/test_02_teil3_aufgaben_10_11.mp3,10=richtig; 11=b
+test_02,Teil 3,12-13,audio/test_02/teil_3/test_02_teil3_aufgaben_12_13.mp3,12=richtig; 13=c
+test_02,Teil 3,14-15,audio/test_02/teil_3/test_02_teil3_aufgaben_14_15.mp3,14=falsch; 15=a
+test_02,Teil 3,16-17,audio/test_02/teil_3/test_02_teil3_aufgaben_16_17.mp3,16=richtig; 17=b
+test_02,Teil 4,18,audio/test_02/teil_4/test_02_teil4_aussage_18.mp3,a
+test_02,Teil 4,19,audio/test_02/teil_4/test_02_teil4_aussage_19.mp3,d
+test_02,Teil 4,20,audio/test_02/teil_4/test_02_teil4_aussage_20.mp3,f
+test_03,Teil 1,1,audio/test_03/teil_1/test_03_teil1_aufgabe_01.mp3,a
+test_03,Teil 1,2,audio/test_03/teil_1/test_03_teil1_aufgabe_02.mp3,b
+test_03,Teil 1,3,audio/test_03/teil_1/test_03_teil1_aufgabe_03.mp3,c
+test_03,Teil 1,4,audio/test_03/teil_1/test_03_teil1_aufgabe_04.mp3,b
+test_03,Teil 2,5,audio/test_03/teil_2/test_03_teil2_aufgabe_05.mp3,c
+test_03,Teil 2,6,audio/test_03/teil_2/test_03_teil2_aufgabe_06.mp3,b
+test_03,Teil 2,7,audio/test_03/teil_2/test_03_teil2_aufgabe_07.mp3,a
+test_03,Teil 2,8,audio/test_03/teil_2/test_03_teil2_aufgabe_08.mp3,c
+test_03,Teil 2,9,audio/test_03/teil_2/test_03_teil2_aufgabe_09.mp3,b
+test_03,Teil 3,10-11,audio/test_03/teil_3/test_03_teil3_aufgaben_10_11.mp3,10=richtig; 11=a
+test_03,Teil 3,12-13,audio/test_03/teil_3/test_03_teil3_aufgaben_12_13.mp3,12=falsch; 13=b
+test_03,Teil 3,14-15,audio/test_03/teil_3/test_03_teil3_aufgaben_14_15.mp3,14=falsch; 15=b
+test_03,Teil 3,16-17,audio/test_03/teil_3/test_03_teil3_aufgaben_16_17.mp3,16=richtig; 17=a
+test_03,Teil 4,18,audio/test_03/teil_4/test_03_teil4_aussage_18.mp3,a
+test_03,Teil 4,19,audio/test_03/teil_4/test_03_teil4_aussage_19.mp3,d
+test_03,Teil 4,20,audio/test_03/teil_4/test_03_teil4_aussage_20.mp3,f
+test_04,Teil 1,1,audio/test_04/teil_1/test_04_teil1_aufgabe_01.mp3,b
+test_04,Teil 1,2,audio/test_04/teil_1/test_04_teil1_aufgabe_02.mp3,c
+test_04,Teil 1,3,audio/test_04/teil_1/test_04_teil1_aufgabe_03.mp3,a
+test_04,Teil 1,4,audio/test_04/teil_1/test_04_teil1_aufgabe_04.mp3,b
+test_04,Teil 2,5,audio/test_04/teil_2/test_04_teil2_aufgabe_05.mp3,a
+test_04,Teil 2,6,audio/test_04/teil_2/test_04_teil2_aufgabe_06.mp3,c
+test_04,Teil 2,7,audio/test_04/teil_2/test_04_teil2_aufgabe_07.mp3,b
+test_04,Teil 2,8,audio/test_04/teil_2/test_04_teil2_aufgabe_08.mp3,a
+test_04,Teil 2,9,audio/test_04/teil_2/test_04_teil2_aufgabe_09.mp3,c
+test_04,Teil 3,10-11,audio/test_04/teil_3/test_04_teil3_aufgaben_10_11.mp3,10=falsch; 11=b
+test_04,Teil 3,12-13,audio/test_04/teil_3/test_04_teil3_aufgaben_12_13.mp3,12=falsch; 13=c
+test_04,Teil 3,14-15,audio/test_04/teil_3/test_04_teil3_aufgaben_14_15.mp3,14=richtig; 15=b
+test_04,Teil 3,16-17,audio/test_04/teil_3/test_04_teil3_aufgaben_16_17.mp3,16=richtig; 17=a
+test_04,Teil 4,18,audio/test_04/teil_4/test_04_teil4_aussage_18.mp3,a
+test_04,Teil 4,19,audio/test_04/teil_4/test_04_teil4_aussage_19.mp3,e
+test_04,Teil 4,20,audio/test_04/teil_4/test_04_teil4_aussage_20.mp3,c
+test_05,Teil 1,1,audio/test_05/teil_1/test_05_teil1_aufgabe_01.mp3,a
+test_05,Teil 1,2,audio/test_05/teil_1/test_05_teil1_aufgabe_02.mp3,c
+test_05,Teil 1,3,audio/test_05/teil_1/test_05_teil1_aufgabe_03.mp3,b
+test_05,Teil 1,4,audio/test_05/teil_1/test_05_teil1_aufgabe_04.mp3,a
+test_05,Teil 2,5,audio/test_05/teil_2/test_05_teil2_aufgabe_05.mp3,c
+test_05,Teil 2,6,audio/test_05/teil_2/test_05_teil2_aufgabe_06.mp3,a
+test_05,Teil 2,7,audio/test_05/teil_2/test_05_teil2_aufgabe_07.mp3,b
+test_05,Teil 2,8,audio/test_05/teil_2/test_05_teil2_aufgabe_08.mp3,c
+test_05,Teil 2,9,audio/test_05/teil_2/test_05_teil2_aufgabe_09.mp3,a
+test_05,Teil 3,10-11,audio/test_05/teil_3/test_05_teil3_aufgaben_10_11.mp3,10=richtig; 11=a
+test_05,Teil 3,12-13,audio/test_05/teil_3/test_05_teil3_aufgaben_12_13.mp3,12=falsch; 13=c
+test_05,Teil 3,14-15,audio/test_05/teil_3/test_05_teil3_aufgaben_14_15.mp3,14=falsch; 15=a
+test_05,Teil 3,16-17,audio/test_05/teil_3/test_05_teil3_aufgaben_16_17.mp3,16=richtig; 17=c
+test_05,Teil 4,18,audio/test_05/teil_4/test_05_teil4_aussage_18.mp3,e
+test_05,Teil 4,19,audio/test_05/teil_4/test_05_teil4_aussage_19.mp3,d
+test_05,Teil 4,20,audio/test_05/teil_4/test_05_teil4_aussage_20.mp3,b
+test_06,Teil 1,1,audio/test_06/teil_1/test_06_teil1_aufgabe_01.mp3,b
+test_06,Teil 1,2,audio/test_06/teil_1/test_06_teil1_aufgabe_02.mp3,a
+test_06,Teil 1,3,audio/test_06/teil_1/test_06_teil1_aufgabe_03.mp3,a
+test_06,Teil 1,4,audio/test_06/teil_1/test_06_teil1_aufgabe_04.mp3,b
+test_06,Teil 2,5,audio/test_06/teil_2/test_06_teil2_aufgabe_05.mp3,b
+test_06,Teil 2,6,audio/test_06/teil_2/test_06_teil2_aufgabe_06.mp3,c
+test_06,Teil 2,7,audio/test_06/teil_2/test_06_teil2_aufgabe_07.mp3,a
+test_06,Teil 2,8,audio/test_06/teil_2/test_06_teil2_aufgabe_08.mp3,b
+test_06,Teil 2,9,audio/test_06/teil_2/test_06_teil2_aufgabe_09.mp3,c
+test_06,Teil 3,10-11,audio/test_06/teil_3/test_06_teil3_aufgaben_10_11.mp3,10=richtig; 11=a
+test_06,Teil 3,12-13,audio/test_06/teil_3/test_06_teil3_aufgaben_12_13.mp3,12=falsch; 13=b
+test_06,Teil 3,14-15,audio/test_06/teil_3/test_06_teil3_aufgaben_14_15.mp3,14=richtig; 15=a
+test_06,Teil 3,16-17,audio/test_06/teil_3/test_06_teil3_aufgaben_16_17.mp3,16=falsch; 17=a
+test_06,Teil 4,18,audio/test_06/teil_4/test_06_teil4_aussage_18.mp3,a
+test_06,Teil 4,19,audio/test_06/teil_4/test_06_teil4_aussage_19.mp3,d
+test_06,Teil 4,20,audio/test_06/teil_4/test_06_teil4_aussage_20.mp3,f
