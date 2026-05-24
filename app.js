@@ -30,50 +30,126 @@ const themes = [
   "Kurs und Weiterbildung"
 ];
 
-const listeningSeeds = [
+const listeningAnnouncements = [
   {
-    type: "Ansage",
-    audio: "Guten Tag. Hier ist die Praxis Dr. Kramer. Ihr Termin am Dienstag muss leider verschoben werden. Bitte kommen Sie am Mittwoch um acht Uhr dreißig. Wenn das nicht passt, rufen Sie uns heute bis siebzehn Uhr an.",
-    question: "Was soll die Person tun, wenn der neue Termin nicht passt?",
-    options: ["Heute anrufen", "Am Dienstag kommen", "Eine E-Mail schreiben"],
+    audio: "Achtung am Gleis drei. Der Regionalzug nach Köln fährt heute nicht um neun Uhr zehn, sondern erst um neun Uhr fünfundzwanzig. Grund dafür sind Bauarbeiten auf der Strecke. Bitte achten Sie auf weitere Durchsagen.",
+    question: "Was ist richtig?",
+    options: ["Der Zug fährt später ab.", "Der Zug fährt von Gleis neun.", "Der Zug fällt heute komplett aus."],
     correct: 0
   },
   {
-    type: "Gespräch",
-    audio: "Mann: Hast du die Hausordnung gelesen? Frau: Ja, ab zwanzig Uhr soll man die Waschmaschine nicht mehr benutzen. Mann: Dann wasche ich morgen früh. Heute ist es schon zu spät.",
-    question: "Warum wäscht der Mann heute nicht?",
-    options: ["Die Maschine ist kaputt", "Es ist zu spät", "Er hat kein Waschmittel"],
+    audio: "Liebe Kundinnen und Kunden, wegen einer technischen Störung ist der Aufzug im Einkaufszentrum heute außer Betrieb. Bitte benutzen Sie die Treppe oder den Aufzug im Parkhaus. Wir bitten um Ihr Verständnis.",
+    question: "Was sollen die Kunden benutzen?",
+    options: ["Den Aufzug im Einkaufszentrum", "Die Treppe oder den Parkhaus-Aufzug", "Nur den Eingang neben der Apotheke"],
     correct: 1
   },
   {
-    type: "Information",
-    audio: "Achtung an Gleis vier. Der Regionalzug nach Bonn fährt heute wegen Bauarbeiten zehn Minuten später ab. Die Wagen der ersten Klasse befinden sich am Ende des Zuges.",
-    question: "Was wird mitgeteilt?",
-    options: ["Der Zug fällt aus", "Der Zug fährt später", "Der Zug fährt von Gleis zehn"],
-    correct: 1
-  },
-  {
-    type: "Meinung",
-    audio: "Ich finde den neuen Sprachkurs gut, weil wir viel sprechen. Die Hausaufgaben sind manchmal schwer, aber die Lehrerin erklärt alles ruhig und deutlich.",
-    question: "Wie findet die Person den Kurs?",
-    options: ["Meistens positiv", "Zu teuer", "Langweilig"],
+    audio: "Achtung, eine Durchsage für Fluggäste nach Wien. Der Flug LH zweihundertachtzehn startet heute von Ausgang B zwölf. Das Einsteigen beginnt in zehn Minuten. Bitte halten Sie Ihre Bordkarte bereit.",
+    question: "Wohin sollen die Fluggäste gehen?",
+    options: ["Zum Ausgang B zwölf", "Zum Informationsschalter", "Zur Gepäckausgabe"],
     correct: 0
   },
   {
-    type: "Nachricht",
-    audio: "Hallo Samira, ich stehe noch beim Bürgeramt. Es dauert länger als gedacht. Kannst du bitte die Kinder um vier Uhr vom Sport abholen? Danke dir.",
-    question: "Worum bittet die Person?",
-    options: ["Um Hilfe beim Antrag", "Um Abholung der Kinder", "Um einen Termin im Bürgeramt"],
+    audio: "Sehr geehrte Besucherinnen und Besucher, das Bürgerbüro schließt heute wegen einer Mitarbeiterversammlung bereits um zwölf Uhr. Ab morgen sind wir wieder zu den normalen Öffnungszeiten für Sie da.",
+    question: "Was passiert heute?",
+    options: ["Das Bürgerbüro öffnet später.", "Das Bürgerbüro schließt früher.", "Das Bürgerbüro bleibt den ganzen Tag geschlossen."],
+    correct: 1
+  }
+];
+
+const listeningRadio = [
+  {
+    audio: "Und nun das Wetter. Am Vormittag bleibt es meist trocken, aber am Nachmittag ziehen von Westen Regenwolken auf. Die Temperaturen liegen zwischen zwölf und fünfzehn Grad. Am Abend wird es windig.",
+    question: "Wie wird das Wetter am Nachmittag?",
+    options: ["Es regnet wahrscheinlich.", "Es bleibt sonnig und warm.", "Es schneit stark."],
+    correct: 0
+  },
+  {
+    audio: "Verkehrsmeldung. Auf der A drei Richtung Frankfurt gibt es zwischen Leverkusen und Köln einen Unfall. Es staut sich auf acht Kilometern. Autofahrer sollten über die B acht ausweichen.",
+    question: "Warum gibt es Stau?",
+    options: ["Wegen einer Baustelle", "Wegen eines Unfalls", "Wegen schlechten Wetters"],
     correct: 1
   },
   {
-    type: "Radio",
-    audio: "Am Wochenende bleibt das Schwimmbad wegen Reinigungsarbeiten geschlossen. Ab Montag gelten wieder die normalen Öffnungszeiten von sechs bis zwanzig Uhr.",
-    question: "Wann öffnet das Schwimmbad wieder normal?",
-    options: ["Am Samstag", "Am Sonntag", "Am Montag"],
+    audio: "Kurznachrichten. Die Stadtbibliothek bietet ab nächster Woche kostenlose Computerkurse für Erwachsene an. Die Anmeldung ist ab heute online oder direkt in der Bibliothek möglich.",
+    question: "Was bietet die Bibliothek an?",
+    options: ["Kostenlose Computerkurse", "Neue Bücher für Kinder", "Eine Ausstellung über die Stadt"],
+    correct: 0
+  },
+  {
+    audio: "Sport am Morgen. Der lokale Fußballverein hat gestern drei zu eins gewonnen. Das nächste Spiel findet am Samstag um fünfzehn Uhr im Stadtstadion statt. Karten gibt es noch an der Tageskasse.",
+    question: "Wann ist das nächste Spiel?",
+    options: ["Heute Abend", "Am Samstag um fünfzehn Uhr", "Am Sonntagvormittag"],
+    correct: 1
+  },
+  {
+    audio: "Kulturhinweis. Im Stadtpark beginnt heute das Sommerfest. Es gibt Musik, Essen aus verschiedenen Ländern und ein Programm für Kinder. Der Eintritt ist frei.",
+    question: "Was kostet der Eintritt?",
+    options: ["Fünf Euro", "Zehn Euro", "Nichts"],
     correct: 2
   }
 ];
+
+const listeningConversations = [
+  {
+    title: "Kollegen planen eine Dienstreise",
+    audio: "Frau: Hast du schon die Fahrkarten für die Schulung in Hamburg gekauft? Mann: Ja, aber ich habe den früheren Zug genommen. Dann sind wir schon um zehn Uhr dort. Frau: Gut, dann können wir vor dem Seminar noch einen Kaffee trinken. Mann: Genau. Das Hotel ist auch direkt neben dem Bahnhof.",
+    tasks: [
+      { mode: "trueFalse", statement: "Die Kollegen fahren zu einer Schulung nach Hamburg.", correct: 0 },
+      { mode: "multiple", question: "Warum nehmen sie den früheren Zug?", options: ["Sie möchten vorher Zeit haben.", "Der spätere Zug ist ausgebucht.", "Das Seminar beginnt erst abends."], correct: 0 }
+    ]
+  },
+  {
+    title: "Freunde sprechen über eine Wohnung",
+    audio: "Mann: Wie findest du die neue Wohnung? Frau: Sie ist hell und die Küche ist groß. Aber die Miete ist ziemlich hoch. Mann: Stimmt. Dafür ist die Straßenbahn gleich vor der Tür. Frau: Das ist praktisch, weil ich kein Auto habe.",
+    tasks: [
+      { mode: "trueFalse", statement: "Die Frau findet die Miete günstig.", correct: 1 },
+      { mode: "multiple", question: "Was gefällt der Frau?", options: ["Die Nähe zur Straßenbahn", "Der große Balkon", "Der ruhige Garten"], correct: 0 }
+    ]
+  },
+  {
+    title: "Eltern organisieren einen Kindergeburtstag",
+    audio: "Frau: Sollen wir den Geburtstag im Park feiern? Mann: Lieber nicht. Für Samstag ist Regen gemeldet. Frau: Dann machen wir es zu Hause. Ich backe einen Kuchen und du kaufst Getränke. Mann: Einverstanden. Ich besorge auch kleine Preise für die Spiele.",
+    tasks: [
+      { mode: "trueFalse", statement: "Die Feier soll wegen des Wetters zu Hause stattfinden.", correct: 0 },
+      { mode: "multiple", question: "Was kauft der Mann?", options: ["Getränke und kleine Preise", "Einen Kuchen und Kerzen", "Ein Geschenk für die Nachbarn"], correct: 0 }
+    ]
+  },
+  {
+    title: "Nachbarn sprechen über Hausordnung",
+    audio: "Mann: Guten Abend, Frau Yilmaz. Ich wollte kurz fragen, ob Sie morgen das Treppenhaus putzen können. Frau: Morgen schaffe ich es leider nicht. Meine Tochter ist krank. Mann: Kein Problem. Dann tauschen wir einfach. Ich mache morgen und Sie nächste Woche. Frau: Vielen Dank, das hilft mir sehr.",
+    tasks: [
+      { mode: "trueFalse", statement: "Frau Yilmaz kann morgen nicht putzen.", correct: 0 },
+      { mode: "multiple", question: "Was schlagen die Nachbarn vor?", options: ["Sie tauschen die Woche.", "Sie bezahlen eine Firma.", "Sie sprechen mit dem Vermieter."], correct: 0 }
+    ]
+  }
+];
+
+const listeningOpinionSet = {
+  topic: "Leben in der Stadt oder auf dem Land",
+  options: [
+    "A: Die Person mag kurze Wege und viele Angebote.",
+    "B: Die Person braucht Ruhe und mehr Platz.",
+    "C: Die Person findet die Mieten in der Stadt zu teuer.",
+    "D: Die Person möchte ohne Auto leben.",
+    "E: Die Person denkt vor allem an gute Schulen.",
+    "F: Die Person möchte näher bei der Familie wohnen."
+  ],
+  speakers: [
+    {
+      audio: "Person eins: Ich wohne gern in der Stadt. Ich kann mit der Bahn zur Arbeit fahren, zum Arzt laufen und abends ins Kino gehen. Ein Auto brauche ich hier wirklich nicht.",
+      correct: 3
+    },
+    {
+      audio: "Person zwei: Früher habe ich mitten in der Stadt gewohnt. Jetzt lebe ich in einem kleinen Ort. Dort ist es ruhiger, meine Kinder können draußen spielen und wir haben einen Garten.",
+      correct: 1
+    },
+    {
+      audio: "Person drei: Ich würde gern in der Stadt bleiben, aber die Wohnungen sind viel zu teuer geworden. Deshalb suche ich jetzt etwas außerhalb.",
+      correct: 2
+    }
+  ]
+};
 
 const readingSeeds = [
   {
@@ -377,38 +453,69 @@ function generateMockTest() {
 
 function buildListening() {
   const tasks = [];
-  for (let i = 0; i < 20; i += 1) {
-    const seed = listeningSeeds[i % listeningSeeds.length];
-    const variant = Math.floor(i / listeningSeeds.length) + 1;
-    tasks.push({
-      id: `h-${i}`,
-      number: i + 1,
-      type: seed.type,
-      audio: variantAudio(seed.audio, variant),
-      question: seed.question,
-      options: seed.options,
-      correct: seed.correct
-    });
-  }
-  return shuffle(tasks).map((task, index) => ({ ...task, number: index + 1 }));
-}
 
-function variantAudio(text, variant) {
-  if (variant === 1) return text;
-  const replacements = [
-    ["Dienstag", "Donnerstag"],
-    ["Mittwoch", "Freitag"],
-    ["acht Uhr dreißig", "neun Uhr fünfzehn"],
-    ["zwanzig Uhr", "einundzwanzig Uhr"],
-    ["Montag", "Dienstag"],
-    ["Freitag", "Donnerstag"],
-    ["vier Uhr", "fünf Uhr"],
-    ["Juni", "Juli"]
-  ];
-  return replacements.reduce((current, pair, index) => {
-    if ((variant + index) % 2 === 0) return current.replace(pair[0], pair[1]);
-    return current;
-  }, text);
+  listeningAnnouncements.forEach((seed, index) => {
+    tasks.push({
+      ...seed,
+      id: `h-${index + 1}`,
+      number: index + 1,
+      part: 1,
+      type: "Teil 1: Kurze Ansagen",
+      instruction: "Hören Sie vier kurze öffentliche Ansagen. Wählen Sie A, B oder C."
+    });
+  });
+
+  listeningRadio.forEach((seed, index) => {
+    tasks.push({
+      ...seed,
+      id: `h-${index + 5}`,
+      number: index + 5,
+      part: 2,
+      type: "Teil 2: Radio",
+      instruction: "Hören Sie fünf kurze Radiobeiträge. Wählen Sie A, B oder C."
+    });
+  });
+
+  let conversationNumber = 10;
+  listeningConversations.forEach((conversation, conversationIndex) => {
+    conversation.tasks.forEach((task, taskIndex) => {
+      const isTrueFalse = task.mode === "trueFalse";
+      tasks.push({
+        id: `h-${conversationNumber}`,
+        number: conversationNumber,
+        part: 3,
+        type: "Teil 3: Gespräche",
+        instruction: "Hören Sie vier Gespräche. Zu jedem Gespräch gibt es zwei Aufgaben.",
+        audioTitle: `Gespräch ${conversationIndex + 1}: ${conversation.title}`,
+        audio: conversation.audio,
+        question: isTrueFalse ? task.statement : task.question,
+        options: isTrueFalse ? ["Richtig", "Falsch"] : task.options,
+        correct: task.correct,
+        mode: task.mode,
+        pairLabel: taskIndex === 0 ? "Aussage prüfen" : "Frage beantworten"
+      });
+      conversationNumber += 1;
+    });
+  });
+
+  listeningOpinionSet.speakers.forEach((speaker, index) => {
+    tasks.push({
+      id: `h-${index + 18}`,
+      number: index + 18,
+      part: 4,
+      type: "Teil 4: Meinungen",
+      instruction: "Hören Sie drei Personen zu einem Thema. Welche Aussage passt zu welcher Person?",
+      audioTitle: `Person ${index + 1}: ${listeningOpinionSet.topic}`,
+      audio: speaker.audio,
+      question: `Welche Aussage passt zu Person ${index + 1}?`,
+      options: listeningOpinionSet.options,
+      correct: speaker.correct,
+      mode: "matching",
+      topic: listeningOpinionSet.topic
+    });
+  });
+
+  return tasks;
 }
 
 function buildReading() {
@@ -463,26 +570,55 @@ function renderTest() {
 }
 
 function renderListening() {
-  dom["listening-tasks"].innerHTML = state.test.listening.map((task) => `
-    <article class="task-card" data-task="${task.id}">
+  let lastPart = null;
+  dom["listening-tasks"].innerHTML = state.test.listening.map((task) => {
+    const divider = task.part !== lastPart ? renderListeningPartDivider(task) : "";
+    lastPart = task.part;
+    return `
+    ${divider}
+    <article class="task-card listening-task part-${task.part}" data-task="${task.id}">
       <div class="task-topline">
         <strong>Aufgabe ${task.number}</strong>
-        <span class="task-type">${task.type}</span>
+        <span class="task-type">${task.pairLabel || task.type}</span>
       </div>
-      <p>${task.question}</p>
+      ${task.audioTitle ? `<p class="audio-title">${task.audioTitle}</p>` : ""}
+      <p>${escapeHtml(task.question)}</p>
       <div class="audio-row">
         <button class="secondary-button compact" type="button" data-play="${task.id}">Play Audio</button>
-        <span class="task-text">Listen up to two times, then answer.</span>
+        <span class="task-text">${task.part === 3 ? "Listen to the conversation, then answer both tasks." : "Listen up to two times, then answer."}</span>
       </div>
       <div class="answers">${renderOptions("listening", task)}</div>
       <div class="transcript"><strong>Transcript:</strong> ${task.audio}</div>
     </article>
-  `).join("");
+  `;
+  }).join("");
 
   dom["listening-tasks"].querySelectorAll("[data-play]").forEach((button) => {
     button.addEventListener("click", () => speakTask(button.dataset.play));
   });
   bindAnswerEvents(dom["listening-tasks"]);
+}
+
+function renderListeningPartDivider(task) {
+  const titles = {
+    1: "Teil 1 · Kurze Ansagen · Aufgaben 1-4",
+    2: "Teil 2 · Radio · Aufgaben 5-9",
+    3: "Teil 3 · Gespräche · Aufgaben 10-17",
+    4: "Teil 4 · Meinungen · Aufgaben 18-20"
+  };
+  const helper = task.part === 4
+    ? `<div class="match-bank">${listeningOpinionSet.options.map((option) => `<span>${escapeHtml(option)}</span>`).join("")}</div>`
+    : "";
+
+  return `
+    <div class="part-divider">
+      <div>
+        <span class="task-type">${titles[task.part]}</span>
+        <p>${task.instruction}</p>
+      </div>
+      ${helper}
+    </div>
+  `;
 }
 
 function renderReading() {
