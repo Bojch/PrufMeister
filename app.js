@@ -849,6 +849,10 @@ function buildListening(versionIndex = 0) {
 }
 
 function buildReading(versionIndex = 0) {
+  if (typeof readingPracticeTests !== "undefined" && readingPracticeTests.length) {
+    return buildReadingFromPracticeTest(readingPracticeTests[versionIndex % readingPracticeTests.length]);
+  }
+
   const tasks = [];
 
   rotateSelect(readingShortTexts, 5, versionIndex).forEach((seed, index) => {
@@ -926,6 +930,97 @@ function buildReading(versionIndex = 0) {
       instruction: "Lesen Sie den Text mit Lücken. Wählen Sie die passende Lösung A, B oder C.",
       textTitle: readingCloze.title,
       text: readingCloze.text,
+      question: blank.question,
+      options: blank.options,
+      correct: blank.correct,
+      mode: "cloze"
+    });
+  });
+
+  return tasks;
+}
+
+function buildReadingFromPracticeTest(test) {
+  const tasks = [];
+
+  test.part1.tasks.forEach((seed, index) => {
+    tasks.push({
+      id: `r-${index + 1}`,
+      number: index + 1,
+      part: 1,
+      type: "Teil 1: Internetseite",
+      instruction: "Sie suchen auf der Internetseite nach Informationen. Wo finden Sie die passende Information? Wählen Sie A, B oder C.",
+      site: test.part1.site,
+      menu: test.part1.menu,
+      text: seed.text,
+      question: seed.question,
+      options: seed.options,
+      correct: seed.correct
+    });
+  });
+
+  test.part2.situations.forEach((situation, index) => {
+    tasks.push({
+      id: `r-${index + 6}`,
+      number: index + 6,
+      part: 2,
+      type: "Teil 2: Anzeigen",
+      instruction: "Lesen Sie die Situationen und die Anzeigen. Welche Anzeige passt? Wählen Sie A-H oder X.",
+      text: situation.text,
+      question: "Welche Anzeige passt?",
+      options: [...test.part2.ads, "X: Keine Anzeige passt."],
+      adBank: test.part2.ads,
+      correct: situation.correct,
+      mode: "matching"
+    });
+  });
+
+  let messageNumber = 11;
+  test.part3.forEach((message, messageIndex) => {
+    message.tasks.forEach((task, taskIndex) => {
+      tasks.push({
+        id: `r-${messageNumber}`,
+        number: messageNumber,
+        part: 3,
+        type: "Teil 3: Nachrichten",
+        instruction: "Lesen Sie drei kurze Nachrichten. Zu jeder Nachricht gibt es zwei Aufgaben.",
+        textTitle: `Text ${messageIndex + 1}: ${message.title}`,
+        text: message.text,
+        question: task.question,
+        options: task.options,
+        correct: task.correct,
+        mode: task.mode,
+        pairLabel: taskIndex === 0 ? "Aussage prüfen" : "Frage beantworten"
+      });
+      messageNumber += 1;
+    });
+  });
+
+  test.part4.statements.forEach((item, index) => {
+    tasks.push({
+      id: `r-${index + 17}`,
+      number: index + 17,
+      part: 4,
+      type: "Teil 4: Informationstext",
+      instruction: "Lesen Sie den Informationstext. Sind die Aussagen richtig oder falsch?",
+      textTitle: test.part4.title,
+      text: test.part4.text,
+      question: item.statement,
+      options: ["Richtig", "Falsch"],
+      correct: item.correct,
+      mode: "trueFalse"
+    });
+  });
+
+  test.part5.blanks.forEach((blank, index) => {
+    tasks.push({
+      id: `r-${index + 20}`,
+      number: index + 20,
+      part: 5,
+      type: "Teil 5: Sprachbausteine",
+      instruction: "Lesen Sie den Text mit Lücken. Wählen Sie die passende Lösung A, B oder C.",
+      textTitle: test.part5.title,
+      text: test.part5.text,
       question: blank.question,
       options: blank.options,
       correct: blank.correct,
@@ -1059,10 +1154,11 @@ function renderReadingPartDivider(task) {
   };
   let helper = "";
   if (task.part === 1) {
-    helper = renderCityMenu();
+    helper = renderCityMenu(task.menu, task.site);
   }
   if (task.part === 2) {
-    helper = `<div class="match-bank">${readingAdBank.map((option) => `<span>${escapeHtml(option)}</span>`).join("")}<span>X: Keine Anzeige passt.</span></div>`;
+    const adBank = task.adBank || readingAdBank;
+    helper = `<div class="match-bank">${adBank.map((option) => `<span>${escapeHtml(option)}</span>`).join("")}<span>X: Keine Anzeige passt.</span></div>`;
   }
 
   return `
@@ -1076,11 +1172,11 @@ function renderReadingPartDivider(task) {
   `;
 }
 
-function renderCityMenu() {
+function renderCityMenu(menu = readingCityMenu, site = "www.meine-stadt-beispiel.de") {
   return `
     <div class="city-menu" aria-label="Example city website menu">
-      <strong>www.meine-stadt-beispiel.de</strong>
-      ${readingCityMenu.map((section) => `
+      <strong>${escapeHtml(site)}</strong>
+      ${menu.map((section) => `
         <div class="city-menu-row">
           <span>${escapeHtml(section.title)}</span>
           <ul>${section.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
