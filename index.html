@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PrüfMeister</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Exam navigation">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span class="logo-book"></span>
+            <span class="logo-check"></span>
+          </div>
+          <div>
+            <p class="eyebrow">A2-B1 Practice</p>
+            <h1>PrüfMeister</h1>
+          </div>
+        </div>
+
+        <nav class="nav-list" aria-label="Sections">
+          <button class="nav-item active" data-view="dashboard">
+            <span>Dashboard</span>
+            <strong>Start</strong>
+          </button>
+          <button class="nav-item" data-view="exam">
+            <span>Mock Exam</span>
+            <strong>All parts</strong>
+          </button>
+          <button class="nav-item" data-view="results">
+            <span>Results</span>
+            <strong>Score</strong>
+          </button>
+          <button class="nav-item" data-view="history">
+            <span>History</span>
+            <strong>Saved</strong>
+          </button>
+        </nav>
+
+        <div class="notice">
+          <strong>Original practice material</strong>
+          <p>This app follows the DTZ-style structure but does not copy official test papers.</p>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Deutsch-Test für Zuwanderer</p>
+            <h2 id="view-title">Exam Dashboard</h2>
+          </div>
+          <div class="topbar-actions">
+            <button class="icon-button" id="theme-toggle" type="button" aria-label="Toggle theme" title="Toggle theme">
+              <span aria-hidden="true">◐</span>
+            </button>
+            <button class="primary-button" id="new-test" type="button">Generate Mock Test</button>
+          </div>
+        </header>
+
+        <section class="view active" id="dashboard-view" aria-labelledby="view-title">
+          <div class="hero-band">
+            <div class="hero-copy">
+              <p class="eyebrow">Full exam rehearsal</p>
+              <h3>Practice the complete DTZ B1 flow with PrüfMeister.</h3>
+              <p>
+                Generate original Hören, Lesen, Schreiben, and Sprechen tasks, run timed sections, and get an approximate result profile.
+              </p>
+              <div class="hero-actions">
+                <button class="primary-button" id="dashboard-start" type="button">Start a Full Mock Test</button>
+                <button class="secondary-button" id="dashboard-practice" type="button">Open Exam Sections</button>
+              </div>
+            </div>
+            <div class="exam-card" aria-label="Exam summary">
+              <div class="exam-stamp">A2-B1</div>
+              <div>
+                <span>Hören</span>
+                <strong>20 Aufgaben · ca. 25 Min.</strong>
+              </div>
+              <div>
+                <span>Lesen</span>
+                <strong>25 Aufgaben · 45 Min.</strong>
+              </div>
+              <div>
+                <span>Schreiben</span>
+                <strong>1 Brief/E-Mail · 30 Min.</strong>
+              </div>
+              <div>
+                <span>Sprechen</span>
+                <strong>3 Aufgaben · Prüfungsgespräch</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="metrics-grid">
+            <article class="metric-panel">
+              <span>Latest Hören + Lesen</span>
+              <strong id="latest-hl">No attempt</strong>
+            </article>
+            <article class="metric-panel">
+              <span>Latest Schreiben</span>
+              <strong id="latest-writing">No attempt</strong>
+            </article>
+            <article class="metric-panel">
+              <span>Latest Sprechen</span>
+              <strong id="latest-speaking">No attempt</strong>
+            </article>
+            <article class="metric-panel">
+              <span>Attempts Saved</span>
+              <strong id="attempt-count">0</strong>
+            </article>
+          </div>
+
+          <section class="info-band">
+            <h3>How the simulator works</h3>
+            <div class="feature-grid">
+              <div>
+                <strong>Generate</strong>
+                <p>Each mock test is assembled from original everyday-life tasks about work, family, offices, appointments, housing, school, and public services.</p>
+              </div>
+              <div>
+                <strong>Practice</strong>
+                <p>Listening uses your browser's German speech voice when available, so you can rehearse without downloaded audio files.</p>
+              </div>
+              <div>
+                <strong>Review</strong>
+                <p>Automatic scoring is available for Hören and Lesen. Writing and speaking use DTZ-style self-assessment rubrics.</p>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section class="view" id="exam-view" aria-labelledby="view-title">
+          <div class="exam-toolbar">
+            <div class="segmented" role="tablist" aria-label="Exam parts">
+              <button class="segment active" data-section="listening" type="button">Hören</button>
+              <button class="segment" data-section="reading" type="button">Lesen</button>
+              <button class="segment" data-section="writing" type="button">Schreiben</button>
+              <button class="segment" data-section="speaking" type="button">Sprechen</button>
+            </div>
+            <div class="timer-card">
+              <span id="timer-label">Section Timer</span>
+              <strong id="timer">25:00</strong>
+              <button class="secondary-button compact" id="timer-toggle" type="button">Start</button>
+              <button class="ghost-button compact" id="timer-reset" type="button">Reset</button>
+            </div>
+          </div>
+
+          <div class="section-panel active" id="listening-section">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Hören · 20 Aufgaben</p>
+                <h3>Listen and choose the correct answer.</h3>
+              </div>
+              <button class="secondary-button" id="play-all-listening" type="button">Play Current Audio</button>
+            </div>
+            <div id="listening-tasks" class="task-list"></div>
+          </div>
+
+          <div class="section-panel" id="reading-section">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Lesen · 25 Aufgaben</p>
+                <h3>Read the texts and mark your answers.</h3>
+              </div>
+            </div>
+            <div id="reading-tasks" class="task-list"></div>
+          </div>
+
+          <div class="section-panel" id="writing-section">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Schreiben · 30 Minuten</p>
+                <h3>Choose one task and write a formal or semi-formal message.</h3>
+              </div>
+            </div>
+            <div id="writing-prompts" class="writing-grid"></div>
+            <label class="text-editor">
+              <span>Your answer</span>
+              <textarea id="writing-answer" rows="12" spellcheck="false" placeholder="Sehr geehrte Damen und Herren, ..."></textarea>
+            </label>
+            <div class="rubric-panel">
+              <div>
+                <strong>Word count</strong>
+                <span id="word-count">0 words</span>
+              </div>
+              <div class="rubric-checks" id="writing-rubric"></div>
+            </div>
+          </div>
+
+          <div class="section-panel" id="speaking-section">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Sprechen · Prüfungsgespräch</p>
+                <h3>Prepare answers, record yourself, and rate your performance.</h3>
+              </div>
+              <button class="secondary-button" id="record-toggle" type="button">Record Practice</button>
+            </div>
+            <div id="speaking-tasks" class="speaking-grid"></div>
+            <div class="rubric-panel">
+              <div>
+                <strong>Recording</strong>
+                <span id="recording-status">Not recording</span>
+              </div>
+              <audio id="recording-playback" controls></audio>
+            </div>
+            <div class="rubric-checks" id="speaking-rubric"></div>
+          </div>
+
+          <div class="exam-actions">
+            <button class="secondary-button" id="score-test" type="button">Calculate Result</button>
+            <button class="ghost-button" id="reveal-review" type="button">Toggle Review Mode</button>
+          </div>
+        </section>
+
+        <section class="view" id="results-view" aria-labelledby="view-title">
+          <div id="results-empty" class="empty-state">
+            <h3>No result yet</h3>
+            <p>Generate a mock test, answer some tasks, then calculate your result.</p>
+            <button class="primary-button" id="results-start" type="button">Go to Exam</button>
+          </div>
+          <div id="results-content" class="results-layout" hidden>
+            <div class="result-summary">
+              <p class="eyebrow">Estimated outcome</p>
+              <h3 id="overall-result">Not calculated</h3>
+              <p id="overall-explanation"></p>
+            </div>
+            <div class="score-grid">
+              <article>
+                <span>Hören + Lesen</span>
+                <strong id="score-hl">0 / 45</strong>
+                <p id="level-hl">Unter A2</p>
+              </article>
+              <article>
+                <span>Schreiben</span>
+                <strong id="score-writing">0 / 20</strong>
+                <p id="level-writing">Unter A2</p>
+              </article>
+              <article>
+                <span>Sprechen</span>
+                <strong id="score-speaking">0 / 100</strong>
+                <p id="level-speaking">Unter A2</p>
+              </article>
+            </div>
+            <div class="review-list" id="review-list"></div>
+          </div>
+        </section>
+
+        <section class="view" id="history-view" aria-labelledby="view-title">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">Local history</p>
+              <h3>Saved attempts</h3>
+            </div>
+            <button class="ghost-button" id="clear-history" type="button">Clear History</button>
+          </div>
+          <div id="history-list" class="history-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
