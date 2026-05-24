@@ -151,43 +151,134 @@ const listeningOpinionSet = {
   ]
 };
 
-const readingSeeds = [
+const readingShortTexts = [
   {
-    type: "Anzeige",
-    text: "Hausmeisterservice Ali sucht ab sofort eine zuverlässige Reinigungskraft für Treppenhäuser. Arbeitszeit: Montag bis Freitag, jeweils 7 bis 10 Uhr. Erfahrung ist gut, aber nicht notwendig. Bewerbung telefonisch ab 14 Uhr.",
-    question: "Wann soll man anrufen?",
-    options: ["Vor 10 Uhr", "Ab 14 Uhr", "Nur am Wochenende"],
+    text: "Praxis Dr. Albrecht: Bitte bringen Sie zu jedem Termin Ihre Versichertenkarte und Ihren aktuellen Medikamentenplan mit.",
+    question: "Was soll man mitbringen?",
+    options: ["Eine Fahrkarte", "Versichertenkarte und Medikamentenplan", "Eine Bewerbung"],
     correct: 1
   },
   {
-    type: "E-Mail",
-    text: "Liebe Eltern, am Freitag macht die Klasse 5b einen Ausflug in den Stadtpark. Bitte geben Sie Ihrem Kind ein Getränk, eine Regenjacke und das unterschriebene Formular mit. Der Unterricht endet wie gewohnt um 13 Uhr.",
-    question: "Was sollen die Eltern mitgeben?",
-    options: ["Eine Fahrkarte", "Ein Formular", "Sportschuhe"],
-    correct: 1
-  },
-  {
-    type: "Hinweis",
-    text: "Wegen einer Betriebsversammlung bleibt die Stadtbibliothek am Mittwochvormittag geschlossen. Die Rückgabe-Automaten im Eingangsbereich können trotzdem benutzt werden.",
-    question: "Was ist am Mittwochvormittag möglich?",
-    options: ["Bücher zurückgeben", "Neue Bücher ausleihen", "An einem Kurs teilnehmen"],
+    text: "Im Hausflur dürfen keine Kinderwagen oder Fahrräder stehen. Fluchtwege müssen frei bleiben.",
+    question: "Was ist im Hausflur verboten?",
+    options: ["Fahrräder abstellen", "Die Treppe benutzen", "Briefe aus dem Briefkasten holen"],
     correct: 0
   },
   {
-    type: "Brief",
-    text: "Sehr geehrte Frau Nguyen, vielen Dank für Ihre Anfrage. Die Reparatur Ihres Kühlschranks ist am Donnerstag zwischen 12 und 15 Uhr möglich. Bitte bestätigen Sie den Termin bis morgen.",
-    question: "Was soll Frau Nguyen tun?",
-    options: ["Den Kühlschrank bringen", "Den Termin bestätigen", "Die Rechnung bezahlen"],
+    text: "Stadtbibliothek: Rückgabe-Automat wegen Wartung heute geschlossen. Bitte geben Sie Medien an der Information ab.",
+    question: "Wo kann man Bücher zurückgeben?",
+    options: ["Nur online", "An der Information", "Am Automaten"],
     correct: 1
   },
   {
-    type: "Kurzmeldung",
-    text: "Das Jobcenter bietet im Juni kostenlose Workshops zum Thema Bewerbung an. Teilnehmende üben Lebenslauf, Anschreiben und Vorstellungsgespräch. Eine Anmeldung ist online oder persönlich möglich.",
-    question: "Was kann man im Workshop üben?",
-    options: ["Eine Prüfung schreiben", "Bewerbungsunterlagen erstellen", "Deutsch unterrichten"],
+    text: "Kita Sonnengarten: Am Freitag endet die Betreuung wegen einer Teamsitzung bereits um 14 Uhr.",
+    question: "Was müssen Eltern beachten?",
+    options: ["Die Kinder früher abholen", "Essen mitbringen", "Die Kita bleibt morgens geschlossen"],
+    correct: 0
+  },
+  {
+    text: "Online-Shop: Kostenlose Lieferung ab 50 Euro. Rücksendungen sind innerhalb von 14 Tagen möglich.",
+    question: "Wann ist die Lieferung kostenlos?",
+    options: ["Immer", "Ab 50 Euro", "Nur am Wochenende"],
     correct: 1
   }
 ];
+
+const readingAdBank = [
+  "A: Möbelhilfe West - Wir transportieren Schränke, Betten und Waschmaschinen. Auch abends und samstags.",
+  "B: Sprachcafe Mitte - Deutsch sprechen in kleinen Gruppen, jeden Dienstag kostenlos, ohne Anmeldung.",
+  "C: Fahrradwerkstatt RadFix - Reparaturen am selben Tag, gebrauchte Fahrräder, günstige Ersatzteile.",
+  "D: Kinderbetreuung Lila - Babysitterinnen mit Erfahrung, nachmittags und am Wochenende verfügbar.",
+  "E: Bewerbungsstudio - Hilfe bei Lebenslauf, Anschreiben und Online-Bewerbung. Termine auch vormittags.",
+  "F: Gartenservice Grün - Rasen mähen, Hecken schneiden, Balkonpflanzen pflegen, faire Preise.",
+  "G: NachhilfePlus - Mathe, Englisch und Deutsch für Schüler ab Klasse 3, einzeln oder online.",
+  "H: Seniorentreff Aktiv - Gemeinsames Frühstück, Spaziergänge und Computerkurse für ältere Menschen."
+];
+
+const readingAdSituations = [
+  {
+    text: "Maria zieht am Samstag um und braucht Hilfe für eine schwere Waschmaschine.",
+    correct: 0
+  },
+  {
+    text: "Omar möchte seine Bewerbungsunterlagen verbessern und braucht vormittags einen Termin.",
+    correct: 4
+  },
+  {
+    text: "Lea sucht jemanden, der am Freitagabend auf ihre zwei Kinder aufpasst.",
+    correct: 3
+  },
+  {
+    text: "Ahmed möchte kostenlos Deutsch sprechen üben, aber keinen festen Kurs besuchen.",
+    correct: 1
+  },
+  {
+    text: "Eine Familie sucht Nachhilfe in Mathe für ihren Sohn in der vierten Klasse.",
+    correct: 6
+  },
+  {
+    text: "Herr Krüger möchte andere ältere Menschen treffen und den Computer besser kennenlernen.",
+    correct: 7
+  },
+  {
+    text: "Nina hat ein kaputtes Fahrrad und möchte es möglichst schnell reparieren lassen.",
+    correct: 2
+  },
+  {
+    text: "Tarek sucht einen günstigen Deutschkurs mit offizieller B1-Prüfung am Ende.",
+    correct: 8
+  }
+];
+
+const readingMessages = [
+  {
+    title: "Nachricht vom Vermieter",
+    text: "Sehr geehrte Mieterinnen und Mieter, am Montag wird im Haus von 8 bis 12 Uhr das Wasser abgestellt. Grund ist eine Reparatur im Keller. Bitte planen Sie entsprechend. Bei Fragen erreichen Sie die Hausverwaltung telefonisch.",
+    tasks: [
+      { mode: "trueFalse", statement: "Am Montag gibt es vormittags kein Wasser im Haus.", correct: 0 },
+      { mode: "multiple", question: "Warum wird das Wasser abgestellt?", options: ["Wegen einer Reparatur", "Wegen einer Kontrolle der Miete", "Wegen Reinigungsarbeiten im Hof"], correct: 0 }
+    ]
+  },
+  {
+    title: "E-Mail aus der Schule",
+    text: "Liebe Eltern, der Ausflug der Klasse 4a findet nicht morgen, sondern erst nächste Woche Mittwoch statt. Bitte geben Sie Ihrem Kind dann ein Getränk, eine Regenjacke und 3 Euro für die Fahrt mit.",
+    tasks: [
+      { mode: "trueFalse", statement: "Der Ausflug ist auf nächste Woche verschoben.", correct: 0 },
+      { mode: "multiple", question: "Was sollen die Kinder mitbringen?", options: ["Sportschuhe und Badezeug", "Ein Getränk, Regenjacke und Geld", "Nur das unterschriebene Zeugnis"], correct: 1 }
+    ]
+  },
+  {
+    title: "SMS vom Deutschkurs",
+    text: "Hallo zusammen, morgen fällt der Unterricht wegen Krankheit aus. Bitte wiederholen Sie Kapitel 6 und schreiben Sie zehn Sätze im Perfekt. Am Donnerstag machen wir normal weiter.",
+    tasks: [
+      { mode: "trueFalse", statement: "Der Unterricht findet morgen wie gewohnt statt.", correct: 1 },
+      { mode: "multiple", question: "Was sollen die Teilnehmenden machen?", options: ["Kapitel 6 wiederholen", "Eine Prüfung anmelden", "Den Kursraum wechseln"], correct: 0 }
+    ]
+  }
+];
+
+const readingInfoText = {
+  title: "Information: Anmeldung im Bürgerbüro",
+  text: "Wenn Sie in eine neue Wohnung ziehen, müssen Sie sich beim Bürgerbüro anmelden. In vielen Städten muss die Anmeldung innerhalb von zwei Wochen nach dem Umzug erfolgen. Für den Termin brauchen Sie einen Ausweis oder Pass und eine Wohnungsgeberbestätigung. Oft können Sie online einen Termin buchen. Wenn Sie zu spät kommen oder wichtige Unterlagen fehlen, müssen Sie meistens einen neuen Termin vereinbaren.",
+  statements: [
+    { statement: "Nach einem Umzug muss man sich beim Bürgerbüro anmelden.", correct: 0 },
+    { statement: "Für die Anmeldung braucht man nie Unterlagen.", correct: 1 },
+    { statement: "Viele Städte bieten Online-Termine an.", correct: 0 }
+  ]
+};
+
+const readingCloze = {
+  title: "Sprachbausteine: Einladung zum Nachbarschaftsfest",
+  text: "Liebe Nachbarinnen und Nachbarn,\nwir möchten Sie herzlich zu unserem Sommerfest im Hof einladen. Das Fest findet am Samstag, ___(1)___ 15 Uhr statt. Bitte bringen Sie etwas zu essen mit, ___(2)___ wir ein großes Buffet machen können. Getränke kaufen wir gemeinsam ein. Wenn Sie Musik machen ___(3)___ Spiele für Kinder organisieren möchten, melden Sie sich bitte bei Frau Keller. Bei schlechtem Wetter treffen wir uns ___(4)___ Gemeinschaftsraum. Wir freuen uns, ___(5)___ viele Nachbarn kommen und wir einen schönen Nachmittag zusammen verbringen. Bitte sagen Sie bis Mittwoch Bescheid, ___(6)___ Sie teilnehmen können.",
+  blanks: [
+    { question: "Lücke 1", options: ["um", "am", "im"], correct: 0 },
+    { question: "Lücke 2", options: ["damit", "weil", "obwohl"], correct: 0 },
+    { question: "Lücke 3", options: ["aber", "oder", "denn"], correct: 1 },
+    { question: "Lücke 4", options: ["auf dem", "in den", "im"], correct: 2 },
+    { question: "Lücke 5", options: ["wenn", "dass", "weil"], correct: 1 },
+    { question: "Lücke 6", options: ["ob", "als", "seit"], correct: 0 }
+  ]
+};
 
 const writingPrompts = [
   {
@@ -520,19 +611,87 @@ function buildListening() {
 
 function buildReading() {
   const tasks = [];
-  for (let i = 0; i < 25; i += 1) {
-    const seed = readingSeeds[i % readingSeeds.length];
-    const suffix = i >= readingSeeds.length ? `\n\nZusatzhinweis: Bitte beachten Sie die genannten Zeiten und Fristen genau.` : "";
+
+  readingShortTexts.forEach((seed, index) => {
     tasks.push({
-      id: `r-${i}`,
-      number: i + 1,
-      type: `Teil ${(i % 5) + 1}: ${seed.type}`,
-      text: seed.text + suffix,
-      question: seed.question,
-      options: seed.options,
-      correct: seed.correct
+      ...seed,
+      id: `r-${index + 1}`,
+      number: index + 1,
+      part: 1,
+      type: "Teil 1: Kurze Texte",
+      instruction: "Lesen Sie fünf kurze Hinweise oder Schilder. Wählen Sie A, B oder C."
     });
-  }
+  });
+
+  readingAdSituations.forEach((situation, index) => {
+    tasks.push({
+      id: `r-${index + 6}`,
+      number: index + 6,
+      part: 2,
+      type: "Teil 2: Anzeigen",
+      instruction: "Lesen Sie die Situationen und die Anzeigen. Welche Anzeige passt? Wählen Sie A-H oder X.",
+      text: situation.text,
+      question: "Welche Anzeige passt?",
+      options: [...readingAdBank, "X: Keine Anzeige passt."],
+      correct: situation.correct,
+      mode: "matching"
+    });
+  });
+
+  let messageNumber = 14;
+  readingMessages.forEach((message, messageIndex) => {
+    message.tasks.forEach((task, taskIndex) => {
+      const isTrueFalse = task.mode === "trueFalse";
+      tasks.push({
+        id: `r-${messageNumber}`,
+        number: messageNumber,
+        part: 3,
+        type: "Teil 3: Nachrichten",
+        instruction: "Lesen Sie drei kurze Nachrichten. Zu jeder Nachricht gibt es zwei Aufgaben.",
+        textTitle: `Nachricht ${messageIndex + 1}: ${message.title}`,
+        text: message.text,
+        question: isTrueFalse ? task.statement : task.question,
+        options: isTrueFalse ? ["Richtig", "Falsch"] : task.options,
+        correct: task.correct,
+        mode: task.mode,
+        pairLabel: taskIndex === 0 ? "Aussage prüfen" : "Frage beantworten"
+      });
+      messageNumber += 1;
+    });
+  });
+
+  readingInfoText.statements.forEach((item, index) => {
+    tasks.push({
+      id: `r-${index + 20}`,
+      number: index + 20,
+      part: 4,
+      type: "Teil 4: Informationstext",
+      instruction: "Lesen Sie den Informationstext. Sind die Aussagen richtig oder falsch?",
+      textTitle: readingInfoText.title,
+      text: readingInfoText.text,
+      question: item.statement,
+      options: ["Richtig", "Falsch"],
+      correct: item.correct,
+      mode: "trueFalse"
+    });
+  });
+
+  readingCloze.blanks.forEach((blank, index) => {
+    tasks.push({
+      id: `r-${index + 23}`,
+      number: index + 23,
+      part: 5,
+      type: "Teil 5: Sprachbausteine",
+      instruction: "Lesen Sie den Text mit Lücken. Wählen Sie die passende Lösung A, B oder C.",
+      textTitle: readingCloze.title,
+      text: readingCloze.text,
+      question: blank.question,
+      options: blank.options,
+      correct: blank.correct,
+      mode: "cloze"
+    });
+  });
+
   return tasks;
 }
 
@@ -622,18 +781,53 @@ function renderListeningPartDivider(task) {
 }
 
 function renderReading() {
-  dom["reading-tasks"].innerHTML = state.test.reading.map((task) => `
-    <article class="task-card" data-task="${task.id}">
+  let lastPart = null;
+  const repeatedTextKeys = new Set();
+  dom["reading-tasks"].innerHTML = state.test.reading.map((task) => {
+    const divider = task.part !== lastPart ? renderReadingPartDivider(task) : "";
+    const textKey = `${task.part}-${task.textTitle || task.text}`;
+    const shouldShowText = !repeatedTextKeys.has(textKey);
+    repeatedTextKeys.add(textKey);
+    lastPart = task.part;
+
+    return `
+    ${divider}
+    <article class="task-card reading-task part-${task.part}" data-task="${task.id}">
       <div class="task-topline">
         <strong>Aufgabe ${task.number}</strong>
-        <span class="task-type">${task.type}</span>
+        <span class="task-type">${task.pairLabel || task.type}</span>
       </div>
-      <p class="task-text">${escapeHtml(task.text)}</p>
-      <p>${task.question}</p>
+      ${task.textTitle && shouldShowText ? `<p class="audio-title">${task.textTitle}</p>` : ""}
+      ${shouldShowText ? `<p class="task-text">${escapeHtml(task.text)}</p>` : ""}
+      <p>${escapeHtml(task.question)}</p>
       <div class="answers">${renderOptions("reading", task)}</div>
     </article>
-  `).join("");
+  `;
+  }).join("");
   bindAnswerEvents(dom["reading-tasks"]);
+}
+
+function renderReadingPartDivider(task) {
+  const titles = {
+    1: "Teil 1 · Kurze Texte/Schilder · Aufgaben 1-5",
+    2: "Teil 2 · Anzeigen · Aufgaben 6-13",
+    3: "Teil 3 · Nachrichten · Aufgaben 14-19",
+    4: "Teil 4 · Informationstext · Aufgaben 20-22",
+    5: "Teil 5 · Sprachbausteine · Aufgaben 23-28"
+  };
+  const helper = task.part === 2
+    ? `<div class="match-bank">${readingAdBank.map((option) => `<span>${escapeHtml(option)}</span>`).join("")}<span>X: Keine Anzeige passt.</span></div>`
+    : "";
+
+  return `
+    <div class="part-divider">
+      <div>
+        <span class="task-type">${titles[task.part]}</span>
+        <p>${task.instruction}</p>
+      </div>
+      ${helper}
+    </div>
+  `;
 }
 
 function renderOptions(section, task) {
@@ -832,6 +1026,9 @@ function calculateResult() {
   const listeningScore = state.test.listening.filter((task) => task.answer === task.correct).length;
   const readingScore = state.test.reading.filter((task) => task.answer === task.correct).length;
   const hlScore = listeningScore + readingScore;
+  const listeningTotal = state.test.listening.length;
+  const readingTotal = state.test.reading.length;
+  const hlTotal = listeningTotal + readingTotal;
   const writingChecks = document.querySelectorAll("[data-writing-rubric]:checked").length;
   const speakingChecks = document.querySelectorAll("[data-speaking-rubric]:checked").length;
   const wordCount = dom["writing-answer"].value.trim() ? dom["writing-answer"].value.trim().split(/\s+/).length : 0;
@@ -841,11 +1038,14 @@ function calculateResult() {
     date: new Date().toISOString(),
     theme: state.test.theme,
     hlScore,
+    hlTotal,
     listeningScore,
+    listeningTotal,
     readingScore,
+    readingTotal,
     writingScore,
     speakingScore,
-    hlLevel: levelHL(hlScore),
+    hlLevel: levelHL(hlScore, hlTotal),
     writingLevel: levelWriting(writingScore),
     speakingLevel: levelSpeaking(speakingScore)
   };
@@ -858,9 +1058,10 @@ function calculateResult() {
   switchView("results");
 }
 
-function levelHL(score) {
-  if (score >= 33) return "B1";
-  if (score >= 20) return "A2";
+function levelHL(score, total = 45) {
+  const ratio = score / total;
+  if (ratio >= 0.73) return "B1";
+  if (ratio >= 0.44) return "A2";
   return "Unter A2";
 }
 
@@ -883,7 +1084,8 @@ function renderResults(result) {
   dom["overall-explanation"].textContent = result.overall === "B1 likely"
     ? "Your self-assessment meets the DTZ-style rule: B1 in speaking and B1 in at least one written part."
     : "For a B1-style result, focus on reaching B1 in speaking and B1 in either Hören + Lesen or Schreiben.";
-  dom["score-hl"].textContent = `${result.hlScore} / 45`;
+  const hlTotal = result.hlTotal || 45;
+  dom["score-hl"].textContent = `${result.hlScore} / ${hlTotal}`;
   dom["level-hl"].textContent = result.hlLevel;
   dom["score-writing"].textContent = `${result.writingScore} / 20`;
   dom["level-writing"].textContent = result.writingLevel;
@@ -902,7 +1104,7 @@ function buildReview(result) {
     {
       kind: result.hlLevel === "B1" ? "good" : "watch",
       title: "Hören + Lesen",
-      text: `You scored ${result.listeningScore}/20 in Hören and ${result.readingScore}/25 in Lesen. Review mode shows the correct choices and listening transcripts.`
+      text: `You scored ${result.listeningScore}/${result.listeningTotal || 20} in Hören and ${result.readingScore}/${result.readingTotal || 25} in Lesen. Review mode shows the correct choices and listening transcripts.`
     },
     {
       kind: result.writingLevel === "B1" ? "good" : "watch",
@@ -937,7 +1139,7 @@ function renderHistory() {
     <article class="history-item">
       <div>
         <strong>${new Date(item.date).toLocaleString()}</strong>
-        <p>${item.theme} · H+L ${item.hlScore}/45 (${item.hlLevel}) · Schreiben ${item.writingScore}/20 (${item.writingLevel}) · Sprechen ${item.speakingScore}/100 (${item.speakingLevel})</p>
+        <p>${item.theme} · H+L ${item.hlScore}/${item.hlTotal || 45} (${item.hlLevel}) · Schreiben ${item.writingScore}/20 (${item.writingLevel}) · Sprechen ${item.speakingScore}/100 (${item.speakingLevel})</p>
       </div>
       <strong>${item.overall}</strong>
     </article>
@@ -959,7 +1161,7 @@ function updateDashboard() {
   const history = getHistory();
   const latest = history[0];
   dom["attempt-count"].textContent = history.length;
-  dom["latest-hl"].textContent = latest ? `${latest.hlScore}/45 · ${latest.hlLevel}` : "No attempt";
+  dom["latest-hl"].textContent = latest ? `${latest.hlScore}/${latest.hlTotal || 45} · ${latest.hlLevel}` : "No attempt";
   dom["latest-writing"].textContent = latest ? `${latest.writingScore}/20 · ${latest.writingLevel}` : "No attempt";
   dom["latest-speaking"].textContent = latest ? `${latest.speakingScore}/100 · ${latest.speakingLevel}` : "No attempt";
 }

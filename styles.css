@@ -140,6 +140,13 @@ h1 {
   font-size: 1.25rem;
 }
 
+.brand-byline {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
 h2 {
   margin-bottom: 0;
   font-size: clamp(1.5rem, 2vw, 2.15rem);
