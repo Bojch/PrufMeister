@@ -506,6 +506,41 @@ h3 {
   line-height: 1.35;
 }
 
+.city-menu {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.city-menu > strong {
+  display: block;
+  padding: 10px 14px;
+  background: var(--blue);
+  color: #fff;
+  text-align: center;
+}
+
+.city-menu-row {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  border-top: 1px solid var(--line);
+}
+
+.city-menu-row > span {
+  padding: 12px;
+  background: color-mix(in srgb, var(--blue) 18%, var(--surface-soft));
+  font-weight: 850;
+}
+
+.city-menu-row ul {
+  margin: 0;
+  padding: 12px 18px;
+  color: var(--muted);
+  line-height: 1.45;
+  list-style-position: inside;
+}
+
 .task-card {
   padding: 18px;
 }
@@ -852,6 +887,10 @@ audio {
   }
 
   .match-bank {
+    grid-template-columns: 1fr;
+  }
+
+  .city-menu-row {
     grid-template-columns: 1fr;
   }
 

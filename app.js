@@ -153,80 +153,95 @@ const listeningOpinionSet = {
 
 const readingShortTexts = [
   {
-    text: "Praxis Dr. Albrecht: Bitte bringen Sie zu jedem Termin Ihre Versichertenkarte und Ihren aktuellen Medikamentenplan mit.",
-    question: "Was soll man mitbringen?",
-    options: ["Eine Fahrkarte", "Versichertenkarte und Medikamentenplan", "Eine Bewerbung"],
+    text: "Sie suchen auf der Internetseite Ihrer Stadt nach Informationen.",
+    question: "Sie möchten wissen, wann der nächste Bus zum Flughafen fährt.",
+    options: ["Download", "Verkehr", "anderer Menüpunkt"],
     correct: 1
   },
   {
-    text: "Im Hausflur dürfen keine Kinderwagen oder Fahrräder stehen. Fluchtwege müssen frei bleiben.",
-    question: "Was ist im Hausflur verboten?",
-    options: ["Fahrräder abstellen", "Die Treppe benutzen", "Briefe aus dem Briefkasten holen"],
-    correct: 0
+    text: "Sie suchen auf der Internetseite Ihrer Stadt nach Informationen.",
+    question: "Sie möchten Gemüse auf einem kleinen Grundstück anpflanzen.",
+    options: ["Gesundheit", "Kultur & Freizeit", "Wohnen & Bauen"],
+    correct: 2
   },
   {
-    text: "Stadtbibliothek: Rückgabe-Automat wegen Wartung heute geschlossen. Bitte geben Sie Medien an der Information ab.",
-    question: "Wo kann man Bücher zurückgeben?",
-    options: ["Nur online", "An der Information", "Am Automaten"],
+    text: "Sie suchen auf der Internetseite Ihrer Stadt nach Informationen.",
+    question: "Ihre Freundin möchte Krankenpflegerin werden.",
+    options: ["Download", "Gesundheit", "Wirtschaft & Arbeit"],
+    correct: 2
+  },
+  {
+    text: "Sie suchen auf der Internetseite Ihrer Stadt nach Informationen.",
+    question: "Sie möchten ein Büro oder Geschäft mieten.",
+    options: ["Kultur & Freizeit", "Wirtschaft & Arbeit", "Wohnen & Bauen"],
     correct: 1
   },
   {
-    text: "Kita Sonnengarten: Am Freitag endet die Betreuung wegen einer Teamsitzung bereits um 14 Uhr.",
-    question: "Was müssen Eltern beachten?",
-    options: ["Die Kinder früher abholen", "Essen mitbringen", "Die Kita bleibt morgens geschlossen"],
-    correct: 0
-  },
-  {
-    text: "Online-Shop: Kostenlose Lieferung ab 50 Euro. Rücksendungen sind innerhalb von 14 Tagen möglich.",
-    question: "Wann ist die Lieferung kostenlos?",
-    options: ["Immer", "Ab 50 Euro", "Nur am Wochenende"],
+    text: "Sie suchen auf der Internetseite Ihrer Stadt nach Informationen.",
+    question: "Ihr Kind soll in der Schule einen Vortrag über die Geschichte der Stadt halten.",
+    options: ["Download", "Kultur & Freizeit", "Wohnen & Bauen"],
     correct: 1
   }
 ];
 
+const readingCityMenu = [
+  {
+    title: "Gesundheit",
+    items: ["Arztsuche", "Notrufnummern", "Krankenhaus-Notaufnahmen", "Nacht- und Notdienst-Apotheken", "Gesunde Ernährung", "Reisemedizin"]
+  },
+  {
+    title: "Verkehr",
+    items: ["Fahrpläne des öffentlichen Verkehrs", "Kurzparkzonen", "Parkhäuser", "Fahrschulen", "Prüfstellen für Fahrzeuge"]
+  },
+  {
+    title: "Kultur & Freizeit",
+    items: ["Tourismusbüro", "Kinos", "Musik- und Theaterbühnen", "Museen", "Stadtgeschichte", "Stadtbibliothek", "Einkaufen von A-Z"]
+  },
+  {
+    title: "Wirtschaft & Arbeit",
+    items: ["Betriebe und Unternehmen", "Freie Geschäfts- und Büroräume", "Stellenangebote", "Ausbildung", "Weiterbildung", "Gesundheitsberufe"]
+  },
+  {
+    title: "Wohnen & Bauen",
+    items: ["Mietwohnungen", "Wohnungssuche", "Meldeservice", "Kleingärten", "Baubehörden", "Baufinanzierung"]
+  },
+  {
+    title: "Download",
+    items: ["Stadtpläne", "Formulare", "Parkkarte für Bewohner", "Monatskarten für Bus und Straßenbahn", "Schülerkarten"]
+  }
+];
+
 const readingAdBank = [
-  "A: Möbelhilfe West - Wir transportieren Schränke, Betten und Waschmaschinen. Auch abends und samstags.",
-  "B: Sprachcafe Mitte - Deutsch sprechen in kleinen Gruppen, jeden Dienstag kostenlos, ohne Anmeldung.",
-  "C: Fahrradwerkstatt RadFix - Reparaturen am selben Tag, gebrauchte Fahrräder, günstige Ersatzteile.",
-  "D: Kinderbetreuung Lila - Babysitterinnen mit Erfahrung, nachmittags und am Wochenende verfügbar.",
-  "E: Bewerbungsstudio - Hilfe bei Lebenslauf, Anschreiben und Online-Bewerbung. Termine auch vormittags.",
-  "F: Gartenservice Grün - Rasen mähen, Hecken schneiden, Balkonpflanzen pflegen, faire Preise.",
-  "G: NachhilfePlus - Mathe, Englisch und Deutsch für Schüler ab Klasse 3, einzeln oder online.",
-  "H: Seniorentreff Aktiv - Gemeinsames Frühstück, Spaziergänge und Computerkurse für ältere Menschen."
+  "A: Presseportal SicherPlus - Unsere Versicherung hat eine neue Geschäftsleitung. Informationen über Unternehmensentwicklung und Standorte.",
+  "B: Ausbildung bei DeltaCare - Wir bilden Kaufleute im Gesundheitswesen aus. Unterricht in der Berufsschule, interne Seminare und gute Übernahmechancen.",
+  "C: JobStart Personal - Sachbearbeiter/in für Kfz-Versicherungen gesucht. Sie bearbeiten Verträge und Kundenanfragen. Kaufmännische Ausbildung erforderlich.",
+  "D: Kfz-Schutz Direkt - Haftpflicht, Teilkasko oder Vollkasko für Ihr Auto. Auch für Personen ohne Automobilclub. Online-Angebot in wenigen Minuten.",
+  "E: AutoClub Mobil - Mitglieder erhalten Rabatte bei Autoversicherungen und günstige Zusatzleistungen. Nur für Club-Mitglieder.",
+  "F: StudierendenKasse - Informationen zur gesetzlichen Krankenversicherung für Studierende, Mitversicherung, Pflichtversicherung und freiwillige Versicherung.",
+  "G: ReiseSicher - Reiseversicherung für Urlaub und Auslandsaufenthalte: Haftpflicht, Unfall, Gepäck, Storno und Schutz bei Krankheit.",
+  "H: CampusUnfall - Private Unfallversicherung für Studierende, Schutz bei Studienfahrten, Praktikum und Freizeit. Schneller Online-Abschluss."
 ];
 
 const readingAdSituations = [
   {
-    text: "Maria zieht am Samstag um und braucht Hilfe für eine schwere Waschmaschine.",
-    correct: 0
-  },
-  {
-    text: "Omar möchte seine Bewerbungsunterlagen verbessern und braucht vormittags einen Termin.",
-    correct: 4
-  },
-  {
-    text: "Lea sucht jemanden, der am Freitagabend auf ihre zwei Kinder aufpasst.",
+    text: "Sie brauchen eine Autoversicherung. Sie sind bei keinem Automobilclub.",
     correct: 3
   },
   {
-    text: "Ahmed möchte kostenlos Deutsch sprechen üben, aber keinen festen Kurs besuchen.",
-    correct: 1
-  },
-  {
-    text: "Eine Familie sucht Nachhilfe in Mathe für ihren Sohn in der vierten Klasse.",
+    text: "Ihre Familie plant einen Urlaub. Sie möchte sich dafür versichern lassen.",
     correct: 6
   },
   {
-    text: "Herr Krüger möchte andere ältere Menschen treffen und den Computer besser kennenlernen.",
+    text: "Markus studiert. Er möchte sich gegen Unfälle versichern lassen.",
     correct: 7
   },
   {
-    text: "Nina hat ein kaputtes Fahrrad und möchte es möglichst schnell reparieren lassen.",
-    correct: 2
+    text: "Sie möchten eine private Rentenversicherung abschließen.",
+    correct: 8
   },
   {
-    text: "Tarek sucht einen günstigen Deutschkurs mit offizieller B1-Prüfung am Ende.",
-    correct: 8
+    text: "Ihr Sohn sucht eine neue Stelle bei einer Versicherung.",
+    correct: 2
   }
 ];
 
@@ -258,25 +273,25 @@ const readingMessages = [
 ];
 
 const readingInfoText = {
-  title: "Information: Anmeldung im Bürgerbüro",
-  text: "Wenn Sie in eine neue Wohnung ziehen, müssen Sie sich beim Bürgerbüro anmelden. In vielen Städten muss die Anmeldung innerhalb von zwei Wochen nach dem Umzug erfolgen. Für den Termin brauchen Sie einen Ausweis oder Pass und eine Wohnungsgeberbestätigung. Oft können Sie online einen Termin buchen. Wenn Sie zu spät kommen oder wichtige Unterlagen fehlen, müssen Sie meistens einen neuen Termin vereinbaren.",
+  title: "Schnell-Reiniger für Kaffeemaschinen",
+  text: "Warum reinigen? Wenn sich Rückstände in Kaffeemaschinen oder Wasserkochern sammeln, braucht das Gerät mehr Energie und die Getränke schmecken oft schlechter. Unser Schnell-Reiniger entfernt Kalk und andere Ablagerungen zuverlässig. Er ist für Wasserkocher, Töpfe, Trinkgläser und viele Filterkaffeemaschinen geeignet. Für vollautomatische Espresso-Maschinen empfehlen wir jedoch ein Spezialprodukt. Anwendung: Das Mittel mit Wasser mischen, in das Gerät füllen und etwa dreißig Minuten einwirken lassen. Danach gründlich mit kaltem Wasser ausspülen. Sicherheit: Das Mittel darf nicht in die Hände von Kindern gelangen und darf nicht mit anderen Reinigungsprodukten gemischt werden.",
   statements: [
-    { statement: "Nach einem Umzug muss man sich beim Bürgerbüro anmelden.", correct: 0 },
-    { statement: "Für die Anmeldung braucht man nie Unterlagen.", correct: 1 },
-    { statement: "Viele Städte bieten Online-Termine an.", correct: 0 }
+    { statement: "Der Reiniger kann helfen, den Energieverbrauch zu senken.", correct: 0 },
+    { statement: "Das Mittel ist besonders für vollautomatische Espresso-Maschinen empfohlen.", correct: 1 },
+    { statement: "Nach der Anwendung soll man das Gerät gründlich ausspülen.", correct: 0 }
   ]
 };
 
 const readingCloze = {
-  title: "Sprachbausteine: Einladung zum Nachbarschaftsfest",
-  text: "Liebe Nachbarinnen und Nachbarn,\nwir möchten Sie herzlich zu unserem Sommerfest im Hof einladen. Das Fest findet am Samstag, ___(1)___ 15 Uhr statt. Bitte bringen Sie etwas zu essen mit, ___(2)___ wir ein großes Buffet machen können. Getränke kaufen wir gemeinsam ein. Wenn Sie Musik machen ___(3)___ Spiele für Kinder organisieren möchten, melden Sie sich bitte bei Frau Keller. Bei schlechtem Wetter treffen wir uns ___(4)___ Gemeinschaftsraum. Wir freuen uns, ___(5)___ viele Nachbarn kommen und wir einen schönen Nachmittag zusammen verbringen. Bitte sagen Sie bis Mittwoch Bescheid, ___(6)___ Sie teilnehmen können.",
+  title: "Sprachbausteine: Zahlungserinnerung",
+  text: "Frau\nElena Markovic\nHafenstraße 18\n28195 Bremen\n\nBremen, den 12. November\n\nZAHLUNGSERINNERUNG\n\nSehr ___(1)___ Frau Markovic,\nleider haben wir zu der ___(2)___ genannten Rechnung noch keine Zahlung erhalten. Vielleicht haben Sie die Überweisung nur vergessen. Mit diesem Schreiben schicken wir ___(3)___ eine Kopie der Rechnung.\nBitte überweisen Sie den offenen Betrag bis ___(4)___ 25. November auf unser Konto. ___(5)___ Sie den Betrag inzwischen bezahlt haben, betrachten Sie dieses Schreiben bitte als gegenstandslos.\nBei Fragen können Sie uns ___(6)___ anrufen.\n\nMit freundlichen Grüßen\nService GmbH",
   blanks: [
-    { question: "Lücke 1", options: ["um", "am", "im"], correct: 0 },
-    { question: "Lücke 2", options: ["damit", "weil", "obwohl"], correct: 0 },
-    { question: "Lücke 3", options: ["aber", "oder", "denn"], correct: 1 },
-    { question: "Lücke 4", options: ["auf dem", "in den", "im"], correct: 2 },
-    { question: "Lücke 5", options: ["wenn", "dass", "weil"], correct: 1 },
-    { question: "Lücke 6", options: ["ob", "als", "seit"], correct: 0 }
+    { question: "Lücke 1", options: ["geehrte", "gute", "liebe"], correct: 0 },
+    { question: "Lücke 2", options: ["oben", "unten", "höher"], correct: 0 },
+    { question: "Lücke 3", options: ["Ihnen", "dir", "uns"], correct: 0 },
+    { question: "Lücke 4", options: ["spätestens", "schnellstens", "frühestens"], correct: 0 },
+    { question: "Lücke 5", options: ["Wenn", "Weil", "Damit"], correct: 0 },
+    { question: "Lücke 6", options: ["gerne", "manchmal", "oft"], correct: 0 }
   ]
 };
 
@@ -618,8 +633,8 @@ function buildReading() {
       id: `r-${index + 1}`,
       number: index + 1,
       part: 1,
-      type: "Teil 1: Kurze Texte",
-      instruction: "Lesen Sie fünf kurze Hinweise oder Schilder. Wählen Sie A, B oder C."
+      type: "Teil 1: Internetseite",
+      instruction: "Sie suchen auf der Internetseite Ihrer Stadt nach Informationen. Wo finden Sie die passende Information? Wählen Sie A, B oder C."
     });
   });
 
@@ -638,7 +653,7 @@ function buildReading() {
     });
   });
 
-  let messageNumber = 14;
+  let messageNumber = 11;
   readingMessages.forEach((message, messageIndex) => {
     message.tasks.forEach((task, taskIndex) => {
       const isTrueFalse = task.mode === "trueFalse";
@@ -662,8 +677,8 @@ function buildReading() {
 
   readingInfoText.statements.forEach((item, index) => {
     tasks.push({
-      id: `r-${index + 20}`,
-      number: index + 20,
+      id: `r-${index + 17}`,
+      number: index + 17,
       part: 4,
       type: "Teil 4: Informationstext",
       instruction: "Lesen Sie den Informationstext. Sind die Aussagen richtig oder falsch?",
@@ -678,8 +693,8 @@ function buildReading() {
 
   readingCloze.blanks.forEach((blank, index) => {
     tasks.push({
-      id: `r-${index + 23}`,
-      number: index + 23,
+      id: `r-${index + 20}`,
+      number: index + 20,
       part: 5,
       type: "Teil 5: Sprachbausteine",
       instruction: "Lesen Sie den Text mit Lücken. Wählen Sie die passende Lösung A, B oder C.",
@@ -809,15 +824,19 @@ function renderReading() {
 
 function renderReadingPartDivider(task) {
   const titles = {
-    1: "Teil 1 · Kurze Texte/Schilder · Aufgaben 1-5",
-    2: "Teil 2 · Anzeigen · Aufgaben 6-13",
-    3: "Teil 3 · Nachrichten · Aufgaben 14-19",
-    4: "Teil 4 · Informationstext · Aufgaben 20-22",
-    5: "Teil 5 · Sprachbausteine · Aufgaben 23-28"
+    1: "Teil 1 · Internetseite/Menu · Aufgaben 1-5",
+    2: "Teil 2 · Anzeigen · Aufgaben 6-10",
+    3: "Teil 3 · Nachrichten · Aufgaben 11-16",
+    4: "Teil 4 · Informationstext · Aufgaben 17-19",
+    5: "Teil 5 · Sprachbausteine · Aufgaben 20-25"
   };
-  const helper = task.part === 2
-    ? `<div class="match-bank">${readingAdBank.map((option) => `<span>${escapeHtml(option)}</span>`).join("")}<span>X: Keine Anzeige passt.</span></div>`
-    : "";
+  let helper = "";
+  if (task.part === 1) {
+    helper = renderCityMenu();
+  }
+  if (task.part === 2) {
+    helper = `<div class="match-bank">${readingAdBank.map((option) => `<span>${escapeHtml(option)}</span>`).join("")}<span>X: Keine Anzeige passt.</span></div>`;
+  }
 
   return `
     <div class="part-divider">
@@ -826,6 +845,20 @@ function renderReadingPartDivider(task) {
         <p>${task.instruction}</p>
       </div>
       ${helper}
+    </div>
+  `;
+}
+
+function renderCityMenu() {
+  return `
+    <div class="city-menu" aria-label="Example city website menu">
+      <strong>www.meine-stadt-beispiel.de</strong>
+      ${readingCityMenu.map((section) => `
+        <div class="city-menu-row">
+          <span>${escapeHtml(section.title)}</span>
+          <ul>${section.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+      `).join("")}
     </div>
   `;
 }
