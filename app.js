@@ -16,18 +16,17 @@ const state = {
   recorder: null,
   recordedChunks: [],
   test: null,
-  latestResult: null
+  latestResult: null,
+  lastVersionIndex: -1
 };
 
-const themes = [
-  "Wohnung und Nachbarschaft",
-  "Arbeit und Beruf",
-  "Schule und Kinder",
-  "Gesundheit und Termine",
-  "Behörden und Alltag",
-  "Verkehr und Reisen",
-  "Einkaufen und Dienstleistungen",
-  "Kurs und Weiterbildung"
+const examVersions = [
+  { name: "Mock Exam 1", theme: "Stadt, Verkehr und Behörden" },
+  { name: "Mock Exam 2", theme: "Arbeit, Ausbildung und Versicherung" },
+  { name: "Mock Exam 3", theme: "Familie, Schule und Wohnen" },
+  { name: "Mock Exam 4", theme: "Gesundheit, Termine und Alltag" },
+  { name: "Mock Exam 5", theme: "Freizeit, Einkaufen und Dienstleistungen" },
+  { name: "Mock Exam 6", theme: "Reisen, Nachbarschaft und Kommunikation" }
 ];
 
 const listeningAnnouncements = [
@@ -53,6 +52,30 @@ const listeningAnnouncements = [
     audio: "Sehr geehrte Besucherinnen und Besucher, das Bürgerbüro schließt heute wegen einer Mitarbeiterversammlung bereits um zwölf Uhr. Ab morgen sind wir wieder zu den normalen Öffnungszeiten für Sie da.",
     question: "Was passiert heute?",
     options: ["Das Bürgerbüro öffnet später.", "Das Bürgerbüro schließt früher.", "Das Bürgerbüro bleibt den ganzen Tag geschlossen."],
+    correct: 1
+  },
+  {
+    audio: "Achtung im Schwimmbad. Das Kinderbecken ist heute wegen Reinigungsarbeiten geschlossen. Das Sportbecken und die Sauna können Sie wie gewohnt benutzen.",
+    question: "Was ist heute geschlossen?",
+    options: ["Das Kinderbecken", "Die Sauna", "Das ganze Schwimmbad"],
+    correct: 0
+  },
+  {
+    audio: "Liebe Fahrgäste, die Buslinie sechs fährt heute wegen einer Baustelle nicht über den Marktplatz. Bitte steigen Sie an der Haltestelle Rathaus aus.",
+    question: "Was sollen Fahrgäste tun?",
+    options: ["Am Marktplatz aussteigen", "Die Haltestelle Rathaus benutzen", "Den Zug nehmen"],
+    correct: 1
+  },
+  {
+    audio: "Willkommen im Rathaus. Die Ausgabe neuer Ausweise befindet sich heute im Raum zweihundertvier im zweiten Stock. Bitte ziehen Sie vorher eine Nummer.",
+    question: "Wo bekommt man heute neue Ausweise?",
+    options: ["Im zweiten Stock", "Am Haupteingang", "Im Bürgercafe"],
+    correct: 0
+  },
+  {
+    audio: "Sehr geehrte Kundinnen und Kunden, unser Supermarkt schließt heute wegen Inventur bereits um achtzehn Uhr. Morgen öffnen wir wieder um sieben Uhr.",
+    question: "Wann schließt der Supermarkt heute?",
+    options: ["Um sieben Uhr", "Um achtzehn Uhr", "Um zwanzig Uhr"],
     correct: 1
   }
 ];
@@ -87,6 +110,36 @@ const listeningRadio = [
     question: "Was kostet der Eintritt?",
     options: ["Fünf Euro", "Zehn Euro", "Nichts"],
     correct: 2
+  },
+  {
+    audio: "Heute in der Verbraucherberatung: Viele Menschen zahlen zu viel für Strom. Wer den Anbieter wechseln möchte, sollte zuerst den Jahresverbrauch prüfen und dann mehrere Angebote vergleichen.",
+    question: "Was sollte man zuerst prüfen?",
+    options: ["Den Jahresverbrauch", "Die Bankverbindung", "Die Telefonnummer des Vermieters"],
+    correct: 0
+  },
+  {
+    audio: "Aus der Region. Die Volkshochschule bietet im Herbst neue Abendkurse an. Besonders gefragt sind Deutsch, Computer und Erste Hilfe. Anmelden kann man sich ab Montag.",
+    question: "Wann beginnt die Anmeldung?",
+    options: ["Heute", "Ab Montag", "Erst im Winter"],
+    correct: 1
+  },
+  {
+    audio: "Der Wetterdienst warnt vor Glätte in den frühen Morgenstunden. Autofahrer sollten langsam fahren und mehr Zeit einplanen. Ab Mittag steigen die Temperaturen.",
+    question: "Wovor wird gewarnt?",
+    options: ["Vor Hitze", "Vor Glätte", "Vor starkem Regen am Mittag"],
+    correct: 1
+  },
+  {
+    audio: "Kurznachrichten. Das neue Familienzentrum in der Nordstraße ist eröffnet. Dort gibt es Beratung, Spielgruppen und Hausaufgabenhilfe für Kinder.",
+    question: "Was gibt es im Familienzentrum?",
+    options: ["Nur Sportkurse", "Beratung und Angebote für Kinder", "Eine neue Polizeistation"],
+    correct: 1
+  },
+  {
+    audio: "Verkehr. Wegen eines Demonstrationszuges fahren die Straßenbahnen in der Innenstadt heute nur bis zum Hauptbahnhof. Ersatzbusse stehen bereit.",
+    question: "Warum fahren die Straßenbahnen anders?",
+    options: ["Wegen einer Demonstration", "Wegen Schnee", "Wegen eines Streiks"],
+    correct: 0
   }
 ];
 
@@ -122,34 +175,91 @@ const listeningConversations = [
       { mode: "trueFalse", statement: "Frau Yilmaz kann morgen nicht putzen.", correct: 0 },
       { mode: "multiple", question: "Was schlagen die Nachbarn vor?", options: ["Sie tauschen die Woche.", "Sie bezahlen eine Firma.", "Sie sprechen mit dem Vermieter."], correct: 0 }
     ]
+  },
+  {
+    title: "Freunde kaufen ein Geschenk",
+    audio: "Frau: Was schenken wir Lina zum Abschluss? Mann: Vielleicht einen Gutschein für Bücher. Sie liest doch gern. Frau: Gute Idee, aber sie hat auch gesagt, dass sie einen Rucksack braucht. Mann: Dann kaufen wir einen Rucksack und legen eine Karte dazu.",
+    tasks: [
+      { mode: "trueFalse", statement: "Lina braucht einen Rucksack.", correct: 0 },
+      { mode: "multiple", question: "Was wollen die Freunde kaufen?", options: ["Einen Rucksack", "Nur Blumen", "Eine Eintrittskarte"], correct: 0 }
+    ]
+  },
+  {
+    title: "Ehepaar spricht über einen Arzttermin",
+    audio: "Mann: Ich habe morgen um halb zehn einen Termin beim Orthopäden. Kannst du mich fahren? Frau: Morgen früh muss ich arbeiten. Aber um neun Uhr fährt der Bus direkt vor der Praxis ab. Mann: Dann nehme ich den Bus. Zurück kann ich laufen.",
+    tasks: [
+      { mode: "trueFalse", statement: "Der Mann fährt morgen mit dem Bus zum Arzt.", correct: 0 },
+      { mode: "multiple", question: "Warum kann die Frau ihn nicht fahren?", options: ["Sie muss arbeiten", "Das Auto ist kaputt", "Sie hat selbst einen Termin"], correct: 0 }
+    ]
+  },
+  {
+    title: "Kollegen planen die Mittagspause",
+    audio: "Mann: Gehen wir heute in die Kantine? Frau: Lieber nicht, dort ist es freitags immer sehr voll. Mann: Dann holen wir etwas beim Bäcker und essen im Pausenraum. Frau: Einverstanden. Ich bringe noch Obst mit.",
+    tasks: [
+      { mode: "trueFalse", statement: "Die Kollegen möchten nicht in die Kantine gehen.", correct: 0 },
+      { mode: "multiple", question: "Wo wollen sie essen?", options: ["Im Pausenraum", "Im Restaurant", "Im Park"], correct: 0 }
+    ]
+  },
+  {
+    title: "Familie organisiert einen Ausflug",
+    audio: "Frau: Am Sonntag soll es sonnig werden. Wollen wir zum See fahren? Mann: Ja, aber wir sollten früh los, sonst finden wir keinen Parkplatz. Frau: Ich mache Sandwiches und du packst die Decke ein. Mann: Gut, ich nehme auch Sonnencreme mit.",
+    tasks: [
+      { mode: "trueFalse", statement: "Die Familie möchte am Sonntag zum See fahren.", correct: 0 },
+      { mode: "multiple", question: "Warum wollen sie früh losfahren?", options: ["Wegen der Parkplätze", "Weil der See früh schließt", "Weil sie arbeiten müssen"], correct: 0 }
+    ]
   }
 ];
 
-const listeningOpinionSet = {
-  topic: "Leben in der Stadt oder auf dem Land",
-  options: [
-    "A: Die Person mag kurze Wege und viele Angebote.",
-    "B: Die Person braucht Ruhe und mehr Platz.",
-    "C: Die Person findet die Mieten in der Stadt zu teuer.",
-    "D: Die Person möchte ohne Auto leben.",
-    "E: Die Person denkt vor allem an gute Schulen.",
-    "F: Die Person möchte näher bei der Familie wohnen."
-  ],
-  speakers: [
-    {
-      audio: "Person eins: Ich wohne gern in der Stadt. Ich kann mit der Bahn zur Arbeit fahren, zum Arzt laufen und abends ins Kino gehen. Ein Auto brauche ich hier wirklich nicht.",
-      correct: 3
-    },
-    {
-      audio: "Person zwei: Früher habe ich mitten in der Stadt gewohnt. Jetzt lebe ich in einem kleinen Ort. Dort ist es ruhiger, meine Kinder können draußen spielen und wir haben einen Garten.",
-      correct: 1
-    },
-    {
-      audio: "Person drei: Ich würde gern in der Stadt bleiben, aber die Wohnungen sind viel zu teuer geworden. Deshalb suche ich jetzt etwas außerhalb.",
-      correct: 2
-    }
-  ]
-};
+const listeningOpinionSets = [
+  {
+    topic: "Leben in der Stadt oder auf dem Land",
+    options: [
+      "A: Die Person mag kurze Wege und viele Angebote.",
+      "B: Die Person braucht Ruhe und mehr Platz.",
+      "C: Die Person findet die Mieten in der Stadt zu teuer.",
+      "D: Die Person möchte ohne Auto leben.",
+      "E: Die Person denkt vor allem an gute Schulen.",
+      "F: Die Person möchte näher bei der Familie wohnen."
+    ],
+    speakers: [
+      { audio: "Person eins: Ich wohne gern in der Stadt. Ich kann mit der Bahn zur Arbeit fahren, zum Arzt laufen und abends ins Kino gehen. Ein Auto brauche ich hier wirklich nicht.", correct: 3 },
+      { audio: "Person zwei: Früher habe ich mitten in der Stadt gewohnt. Jetzt lebe ich in einem kleinen Ort. Dort ist es ruhiger, meine Kinder können draußen spielen und wir haben einen Garten.", correct: 1 },
+      { audio: "Person drei: Ich würde gern in der Stadt bleiben, aber die Wohnungen sind viel zu teuer geworden. Deshalb suche ich jetzt etwas außerhalb.", correct: 2 }
+    ]
+  },
+  {
+    topic: "Deutsch lernen im Alltag",
+    options: [
+      "A: Die Person lernt gern mit Filmen.",
+      "B: Die Person braucht Grammatikübungen.",
+      "C: Die Person spricht viel mit Nachbarn.",
+      "D: Die Person hat wenig Zeit wegen der Arbeit.",
+      "E: Die Person liest jeden Tag Zeitung.",
+      "F: Die Person findet Online-Kurse schwierig."
+    ],
+    speakers: [
+      { audio: "Person eins: Ich arbeite den ganzen Tag und bin abends oft müde. Deshalb lerne ich meistens nur am Wochenende Deutsch.", correct: 3 },
+      { audio: "Person zwei: Mir hilft es sehr, wenn ich mit meiner Nachbarin spreche. Sie korrigiert mich freundlich und ich lerne neue Wörter.", correct: 2 },
+      { audio: "Person drei: Ich sehe deutsche Serien mit Untertiteln. So höre ich die Aussprache und verstehe Alltagssprache besser.", correct: 0 }
+    ]
+  },
+  {
+    topic: "Einkaufen im Internet",
+    options: [
+      "A: Die Person vergleicht immer Preise.",
+      "B: Die Person kauft lieber im Geschäft.",
+      "C: Die Person achtet auf Rücksendungen.",
+      "D: Die Person bestellt Lebensmittel online.",
+      "E: Die Person hat schlechte Erfahrungen mit Lieferzeiten.",
+      "F: Die Person bezahlt nie mit Karte."
+    ],
+    speakers: [
+      { audio: "Person eins: Ich bestelle Kleidung online, aber nur wenn ich sie kostenlos zurückschicken kann. Die Größe passt ja nicht immer.", correct: 2 },
+      { audio: "Person zwei: Ich schaue im Internet nach Angeboten und vergleiche die Preise. So spare ich oft Geld.", correct: 0 },
+      { audio: "Person drei: Mir ist das zu unsicher. Ich gehe lieber ins Geschäft, sehe die Ware direkt und kann jemanden fragen.", correct: 1 }
+    ]
+  }
+];
 
 const readingShortTexts = [
   {
@@ -181,6 +291,36 @@ const readingShortTexts = [
     question: "Ihr Kind soll in der Schule einen Vortrag über die Geschichte der Stadt halten.",
     options: ["Download", "Kultur & Freizeit", "Wohnen & Bauen"],
     correct: 1
+  },
+  {
+    text: "Sie suchen auf der Internetseite Ihrer Stadt nach Informationen.",
+    question: "Sie brauchen ein Formular für die Anmeldung Ihrer neuen Wohnung.",
+    options: ["Download", "Gesundheit", "Kultur & Freizeit"],
+    correct: 0
+  },
+  {
+    text: "Sie suchen auf der Internetseite Ihrer Stadt nach Informationen.",
+    question: "Sie suchen eine günstige Parkmöglichkeit in der Innenstadt.",
+    options: ["Verkehr", "Wohnen & Bauen", "Wirtschaft & Arbeit"],
+    correct: 0
+  },
+  {
+    text: "Sie suchen auf der Internetseite Ihrer Stadt nach Informationen.",
+    question: "Sie möchten wissen, welche Apotheken nachts geöffnet haben.",
+    options: ["Gesundheit", "Download", "anderer Menüpunkt"],
+    correct: 0
+  },
+  {
+    text: "Sie suchen auf der Internetseite Ihrer Stadt nach Informationen.",
+    question: "Sie suchen eine Ausbildung in einem Betrieb in der Stadt.",
+    options: ["Kultur & Freizeit", "Wirtschaft & Arbeit", "Verkehr"],
+    correct: 1
+  },
+  {
+    text: "Sie suchen auf der Internetseite Ihrer Stadt nach Informationen.",
+    question: "Sie möchten einen Stadtplan herunterladen.",
+    options: ["Download", "Wohnen & Bauen", "Gesundheit"],
+    correct: 0
   }
 ];
 
@@ -242,6 +382,26 @@ const readingAdSituations = [
   {
     text: "Ihr Sohn sucht eine neue Stelle bei einer Versicherung.",
     correct: 2
+  },
+  {
+    text: "Ihre Tochter möchte eine Ausbildung bei einer Versicherung beginnen.",
+    correct: 1
+  },
+  {
+    text: "Sie studieren und suchen Informationen zur Krankenversicherung.",
+    correct: 5
+  },
+  {
+    text: "Sie sind Mitglied in einem Autoclub und möchten Rabatte für eine Kfz-Versicherung nutzen.",
+    correct: 4
+  },
+  {
+    text: "Sie möchten wissen, wer neuer Direktor einer Versicherung geworden ist.",
+    correct: 0
+  },
+  {
+    text: "Sie suchen eine Versicherung speziell für ein Haustier.",
+    correct: 8
   }
 ];
 
@@ -269,31 +429,89 @@ const readingMessages = [
       { mode: "trueFalse", statement: "Der Unterricht findet morgen wie gewohnt statt.", correct: 1 },
       { mode: "multiple", question: "Was sollen die Teilnehmenden machen?", options: ["Kapitel 6 wiederholen", "Eine Prüfung anmelden", "Den Kursraum wechseln"], correct: 0 }
     ]
+  },
+  {
+    title: "Hinweis der Bahn",
+    text: "Liebe Anwohnerinnen und Anwohner, in der kommenden Woche werden nachts Wartungsarbeiten an der Bahnstrecke durchgeführt. Die Arbeiten dauern von 20 Uhr bis 5 Uhr. Dadurch kann es lauter werden. Wir bitten um Verständnis.",
+    tasks: [
+      { mode: "trueFalse", statement: "Die Arbeiten finden nachts statt.", correct: 0 },
+      { mode: "multiple", question: "Was kann durch die Arbeiten passieren?", options: ["Es kann lauter werden", "Alle Züge fallen einen Monat aus", "Die Straße wird gesperrt"], correct: 0 }
+    ]
+  },
+  {
+    title: "Brief vom Energieversorger",
+    text: "Sehr geehrte Familie Sousa, am 12. Juni möchten wir in Ihrem Wohnhaus den Stromzähler ablesen. Wenn der Termin nicht passt, können Sie den Zähler auch selbst online eintragen. Bei Problemen helfen wir telefonisch weiter.",
+    tasks: [
+      { mode: "trueFalse", statement: "Der Stromzähler soll am 12. Juni abgelesen werden.", correct: 0 },
+      { mode: "multiple", question: "Was kann man tun, wenn der Termin nicht passt?", options: ["Den Zähler online selbst eintragen", "Die Wohnung kündigen", "Eine neue Rechnung verlangen"], correct: 0 }
+    ]
+  },
+  {
+    title: "Nachricht vom Sportverein",
+    text: "Hallo Mitglieder, das Training am Dienstag findet wegen Reparaturen nicht in der Sporthalle statt. Wir treffen uns um 18 Uhr auf dem Sportplatz. Bitte bringt wetterfeste Kleidung mit.",
+    tasks: [
+      { mode: "trueFalse", statement: "Das Training ist am Dienstag in der Sporthalle.", correct: 1 },
+      { mode: "multiple", question: "Was sollen die Mitglieder mitbringen?", options: ["Wetterfeste Kleidung", "Einen Ausweis", "Eine Bewerbung"], correct: 0 }
+    ]
   }
 ];
 
-const readingInfoText = {
-  title: "Schnell-Reiniger für Kaffeemaschinen",
-  text: "Warum reinigen? Wenn sich Rückstände in Kaffeemaschinen oder Wasserkochern sammeln, braucht das Gerät mehr Energie und die Getränke schmecken oft schlechter. Unser Schnell-Reiniger entfernt Kalk und andere Ablagerungen zuverlässig. Er ist für Wasserkocher, Töpfe, Trinkgläser und viele Filterkaffeemaschinen geeignet. Für vollautomatische Espresso-Maschinen empfehlen wir jedoch ein Spezialprodukt. Anwendung: Das Mittel mit Wasser mischen, in das Gerät füllen und etwa dreißig Minuten einwirken lassen. Danach gründlich mit kaltem Wasser ausspülen. Sicherheit: Das Mittel darf nicht in die Hände von Kindern gelangen und darf nicht mit anderen Reinigungsprodukten gemischt werden.",
-  statements: [
-    { statement: "Der Reiniger kann helfen, den Energieverbrauch zu senken.", correct: 0 },
-    { statement: "Das Mittel ist besonders für vollautomatische Espresso-Maschinen empfohlen.", correct: 1 },
-    { statement: "Nach der Anwendung soll man das Gerät gründlich ausspülen.", correct: 0 }
-  ]
-};
+const readingInfoTexts = [
+  {
+    title: "Schnell-Reiniger für Kaffeemaschinen",
+    text: "Warum reinigen? Wenn sich Rückstände in Kaffeemaschinen oder Wasserkochern sammeln, braucht das Gerät mehr Energie und die Getränke schmecken oft schlechter. Unser Schnell-Reiniger entfernt Kalk und andere Ablagerungen zuverlässig. Er ist für Wasserkocher, Töpfe, Trinkgläser und viele Filterkaffeemaschinen geeignet. Für vollautomatische Espresso-Maschinen empfehlen wir jedoch ein Spezialprodukt. Anwendung: Das Mittel mit Wasser mischen, in das Gerät füllen und etwa dreißig Minuten einwirken lassen. Danach gründlich mit kaltem Wasser ausspülen. Sicherheit: Das Mittel darf nicht in die Hände von Kindern gelangen und darf nicht mit anderen Reinigungsprodukten gemischt werden.",
+    statements: [
+      { statement: "Der Reiniger kann helfen, den Energieverbrauch zu senken.", correct: 0 },
+      { statement: "Das Mittel ist besonders für vollautomatische Espresso-Maschinen empfohlen.", correct: 1 },
+      { statement: "Nach der Anwendung soll man das Gerät gründlich ausspülen.", correct: 0 }
+    ]
+  },
+  {
+    title: "Information zum Stadtteilbus",
+    text: "Der neue Stadtteilbus verbindet ab Montag die Wohngebiete im Norden mit dem Bahnhof und dem Einkaufszentrum. Der Bus fährt montags bis freitags alle dreißig Minuten. Samstags fährt er nur bis 18 Uhr. Fahrräder können aus Platzgründen nicht mitgenommen werden. Fahrkarten gibt es am Automaten, in der App oder direkt beim Fahrer. Kinder unter sechs Jahren fahren kostenlos.",
+    statements: [
+      { statement: "Der Stadtteilbus fährt zum Bahnhof.", correct: 0 },
+      { statement: "Samstags fährt der Bus die ganze Nacht.", correct: 1 },
+      { statement: "Kleine Kinder unter sechs Jahren brauchen keine Fahrkarte.", correct: 0 }
+    ]
+  },
+  {
+    title: "Hinweise zur Sperrmüllabholung",
+    text: "Sperrmüll wird nur nach Anmeldung abgeholt. Dazu gehören alte Möbel, Matratzen und große Teppiche. Elektrogeräte, Farbeimer und Bauschutt dürfen nicht dazugestellt werden. Bitte stellen Sie den Sperrmüll frühestens am Abend vor dem Termin an die Straße. Wer den Termin nicht einhält, muss die Sachen wieder entfernen.",
+    statements: [
+      { statement: "Man muss die Sperrmüllabholung vorher anmelden.", correct: 0 },
+      { statement: "Alte Farbeimer dürfen zum Sperrmüll gestellt werden.", correct: 1 },
+      { statement: "Der Sperrmüll darf frühestens am Vorabend rausgestellt werden.", correct: 0 }
+    ]
+  }
+];
 
-const readingCloze = {
-  title: "Sprachbausteine: Zahlungserinnerung",
-  text: "Frau\nElena Markovic\nHafenstraße 18\n28195 Bremen\n\nBremen, den 12. November\n\nZAHLUNGSERINNERUNG\n\nSehr ___(1)___ Frau Markovic,\nleider haben wir zu der ___(2)___ genannten Rechnung noch keine Zahlung erhalten. Vielleicht haben Sie die Überweisung nur vergessen. Mit diesem Schreiben schicken wir ___(3)___ eine Kopie der Rechnung.\nBitte überweisen Sie den offenen Betrag bis ___(4)___ 25. November auf unser Konto. ___(5)___ Sie den Betrag inzwischen bezahlt haben, betrachten Sie dieses Schreiben bitte als gegenstandslos.\nBei Fragen können Sie uns ___(6)___ anrufen.\n\nMit freundlichen Grüßen\nService GmbH",
-  blanks: [
-    { question: "Lücke 1", options: ["geehrte", "gute", "liebe"], correct: 0 },
-    { question: "Lücke 2", options: ["oben", "unten", "höher"], correct: 0 },
-    { question: "Lücke 3", options: ["Ihnen", "dir", "uns"], correct: 0 },
-    { question: "Lücke 4", options: ["spätestens", "schnellstens", "frühestens"], correct: 0 },
-    { question: "Lücke 5", options: ["Wenn", "Weil", "Damit"], correct: 0 },
-    { question: "Lücke 6", options: ["gerne", "manchmal", "oft"], correct: 0 }
-  ]
-};
+const readingClozes = [
+  {
+    title: "Sprachbausteine: Zahlungserinnerung",
+    text: "Frau\nElena Markovic\nHafenstraße 18\n28195 Bremen\n\nBremen, den 12. November\n\nZAHLUNGSERINNERUNG\n\nSehr ___(1)___ Frau Markovic,\nleider haben wir zu der ___(2)___ genannten Rechnung noch keine Zahlung erhalten. Vielleicht haben Sie die Überweisung nur vergessen. Mit diesem Schreiben schicken wir ___(3)___ eine Kopie der Rechnung.\nBitte überweisen Sie den offenen Betrag bis ___(4)___ 25. November auf unser Konto. ___(5)___ Sie den Betrag inzwischen bezahlt haben, betrachten Sie dieses Schreiben bitte als gegenstandslos.\nBei Fragen können Sie uns ___(6)___ anrufen.\n\nMit freundlichen Grüßen\nService GmbH",
+    blanks: [
+      { question: "Lücke 1", options: ["geehrte", "gute", "liebe"], correct: 0 },
+      { question: "Lücke 2", options: ["oben", "unten", "höher"], correct: 0 },
+      { question: "Lücke 3", options: ["Ihnen", "dir", "uns"], correct: 0 },
+      { question: "Lücke 4", options: ["spätestens", "schnellstens", "frühestens"], correct: 0 },
+      { question: "Lücke 5", options: ["Wenn", "Weil", "Damit"], correct: 0 },
+      { question: "Lücke 6", options: ["gerne", "manchmal", "oft"], correct: 0 }
+    ]
+  },
+  {
+    title: "Sprachbausteine: Kursanmeldung",
+    text: "Sehr geehrte Damen und Herren,\nich interessiere mich ___(1)___ Ihren Computerkurs am Abend. Auf Ihrer Internetseite habe ich gelesen, ___(2)___ der Kurs im September beginnt. Bitte teilen Sie mir mit, ___(3)___ noch Plätze frei sind. Ich arbeite tagsüber, deshalb kann ich nur ___(4)___ 18 Uhr teilnehmen. Außerdem möchte ich wissen, ___(5)___ ich die Kursgebühr vor Beginn bezahlen muss. Über eine kurze Antwort würde ich mich sehr ___(6)___.\nMit freundlichen Grüßen\nSamir Haddad",
+    blanks: [
+      { question: "Lücke 1", options: ["für", "bei", "an"], correct: 0 },
+      { question: "Lücke 2", options: ["dass", "weil", "ob"], correct: 0 },
+      { question: "Lücke 3", options: ["ob", "wenn", "als"], correct: 0 },
+      { question: "Lücke 4", options: ["nach", "seit", "bis"], correct: 0 },
+      { question: "Lücke 5", options: ["wann", "ob", "wer"], correct: 1 },
+      { question: "Lücke 6", options: ["freuen", "freut", "freute"], correct: 0 }
+    ]
+  }
+];
 
 const writingPrompts = [
   {
@@ -457,7 +675,7 @@ function cacheDom() {
     "overall-explanation", "score-hl", "level-hl", "score-writing",
     "level-writing", "score-speaking", "level-speaking", "review-list",
     "history-list", "clear-history", "results-start", "latest-hl",
-    "latest-writing", "latest-speaking", "attempt-count"
+    "latest-writing", "latest-speaking", "attempt-count", "exam-version-label"
   ];
 
   ids.forEach((id) => {
@@ -537,14 +755,18 @@ function switchSection(section) {
 
 function generateMockTest() {
   const version = new Date().toISOString();
-  const theme = pick(themes);
+  const versionIndex = (state.lastVersionIndex + 1) % examVersions.length;
+  const examVersion = examVersions[versionIndex];
+  state.lastVersionIndex = versionIndex;
   state.test = {
     id: version,
-    theme,
-    listening: buildListening(),
-    reading: buildReading(),
-    writing: shuffle(writingPrompts).slice(0, 2),
-    speaking: buildSpeaking(theme)
+    versionIndex,
+    versionName: examVersion.name,
+    theme: examVersion.theme,
+    listening: buildListening(versionIndex),
+    reading: buildReading(versionIndex),
+    writing: rotateSelect(writingPrompts, 2, versionIndex),
+    speaking: buildSpeaking(examVersion.theme, versionIndex)
   };
   state.latestResult = null;
   state.selectedWritingPrompt = 0;
@@ -557,10 +779,10 @@ function generateMockTest() {
   updateWordCount();
 }
 
-function buildListening() {
+function buildListening(versionIndex = 0) {
   const tasks = [];
 
-  listeningAnnouncements.forEach((seed, index) => {
+  rotateSelect(listeningAnnouncements, 4, versionIndex).forEach((seed, index) => {
     tasks.push({
       ...seed,
       id: `h-${index + 1}`,
@@ -571,7 +793,7 @@ function buildListening() {
     });
   });
 
-  listeningRadio.forEach((seed, index) => {
+  rotateSelect(listeningRadio, 5, versionIndex).forEach((seed, index) => {
     tasks.push({
       ...seed,
       id: `h-${index + 5}`,
@@ -583,7 +805,7 @@ function buildListening() {
   });
 
   let conversationNumber = 10;
-  listeningConversations.forEach((conversation, conversationIndex) => {
+  rotateSelect(listeningConversations, 4, versionIndex).forEach((conversation, conversationIndex) => {
     conversation.tasks.forEach((task, taskIndex) => {
       const isTrueFalse = task.mode === "trueFalse";
       tasks.push({
@@ -604,6 +826,7 @@ function buildListening() {
     });
   });
 
+  const listeningOpinionSet = listeningOpinionSets[versionIndex % listeningOpinionSets.length];
   listeningOpinionSet.speakers.forEach((speaker, index) => {
     tasks.push({
       id: `h-${index + 18}`,
@@ -617,6 +840,7 @@ function buildListening() {
       options: listeningOpinionSet.options,
       correct: speaker.correct,
       mode: "matching",
+      matchOptions: listeningOpinionSet.options,
       topic: listeningOpinionSet.topic
     });
   });
@@ -624,10 +848,10 @@ function buildListening() {
   return tasks;
 }
 
-function buildReading() {
+function buildReading(versionIndex = 0) {
   const tasks = [];
 
-  readingShortTexts.forEach((seed, index) => {
+  rotateSelect(readingShortTexts, 5, versionIndex).forEach((seed, index) => {
     tasks.push({
       ...seed,
       id: `r-${index + 1}`,
@@ -638,7 +862,7 @@ function buildReading() {
     });
   });
 
-  readingAdSituations.forEach((situation, index) => {
+  rotateSelect(readingAdSituations, 5, versionIndex).forEach((situation, index) => {
     tasks.push({
       id: `r-${index + 6}`,
       number: index + 6,
@@ -654,7 +878,7 @@ function buildReading() {
   });
 
   let messageNumber = 11;
-  readingMessages.forEach((message, messageIndex) => {
+  rotateSelect(readingMessages, 3, versionIndex).forEach((message, messageIndex) => {
     message.tasks.forEach((task, taskIndex) => {
       const isTrueFalse = task.mode === "trueFalse";
       tasks.push({
@@ -675,6 +899,7 @@ function buildReading() {
     });
   });
 
+  const readingInfoText = readingInfoTexts[versionIndex % readingInfoTexts.length];
   readingInfoText.statements.forEach((item, index) => {
     tasks.push({
       id: `r-${index + 17}`,
@@ -691,6 +916,7 @@ function buildReading() {
     });
   });
 
+  const readingCloze = readingClozes[versionIndex % readingClozes.length];
   readingCloze.blanks.forEach((blank, index) => {
     tasks.push({
       id: `r-${index + 20}`,
@@ -710,13 +936,13 @@ function buildReading() {
   return tasks;
 }
 
-function buildSpeaking(theme) {
+function buildSpeaking(theme, versionIndex = 0) {
   const planningOptions = [
     ["Sie möchten mit Ihrer Kursgruppe eine Prüfungsvorbereitung organisieren.", "Wann treffen Sie sich?", "Welche Materialien brauchen Sie?", "Wer bereitet welche Aufgabe vor?"],
     ["Sie planen mit einer Nachbarin ein Hoffest.", "Wann soll das Fest stattfinden?", "Wer lädt die Gäste ein?", "Was brauchen Sie für Essen, Musik und Aufräumen?"],
     ["Sie möchten mit einem Freund ein Geschenk für eine Lehrerin kaufen.", "Was kaufen Sie?", "Wie viel darf es kosten?", "Wann und wo übergeben Sie das Geschenk?"]
   ];
-  const picture = pick(picturePrompts);
+  const picture = picturePrompts[versionIndex % picturePrompts.length];
 
   return [
     speakingSets[0],
@@ -730,11 +956,12 @@ function buildSpeaking(theme) {
         "Erzählen Sie kurz von einer ähnlichen Erfahrung."
       ]
     },
-    { title: "Teil 3: Gemeinsam etwas planen", points: pick(planningOptions), theme }
+    { title: "Teil 3: Gemeinsam etwas planen", points: planningOptions[versionIndex % planningOptions.length], theme }
   ];
 }
 
 function renderTest() {
+  dom["exam-version-label"].textContent = `${state.test.versionName} · ${state.test.theme}`;
   renderListening();
   renderReading();
   renderWriting();
@@ -781,7 +1008,7 @@ function renderListeningPartDivider(task) {
     4: "Teil 4 · Meinungen · Aufgaben 18-20"
   };
   const helper = task.part === 4
-    ? `<div class="match-bank">${listeningOpinionSet.options.map((option) => `<span>${escapeHtml(option)}</span>`).join("")}</div>`
+    ? `<div class="match-bank">${task.options.map((option) => `<span>${escapeHtml(option)}</span>`).join("")}</div>`
     : "";
 
   return `
@@ -1201,6 +1428,10 @@ function updateDashboard() {
 
 function pick(items) {
   return items[Math.floor(Math.random() * items.length)];
+}
+
+function rotateSelect(items, count, offset = 0) {
+  return Array.from({ length: count }, (_, index) => items[(offset + index) % items.length]);
 }
 
 function shuffle(items) {

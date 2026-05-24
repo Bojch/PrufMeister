@@ -439,6 +439,19 @@ h3 {
   background: var(--surface);
 }
 
+.version-pill {
+  display: grid;
+  place-items: center;
+  min-height: 50px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--primary-strong);
+  font-weight: 850;
+  white-space: nowrap;
+}
+
 .timer-card strong {
   min-width: 64px;
   font-size: 1.15rem;
